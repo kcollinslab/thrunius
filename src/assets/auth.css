@@ -1,0 +1,76 @@
+.auth-view {
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 4em 1rem 2rem;
+}
+
+.auth-card {
+  border: 1px solid #dee2e6;
+  border-radius: 1.5rem;
+  animation: authSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-card-body {
+  padding: 1.5rem;
+}
+
+.auth-link {
+  color: #0d6efd;
+}
+
+.auth-form-container {
+  max-width: 100%;
+}
+
+.auth-heading {
+  margin-bottom: 1.5rem;
+}
+
+.auth-title {
+  margin-bottom: 0;
+}
+
+.auth-form {
+  margin-top: 1.5rem;
+}
+
+.auth-field {
+  margin-bottom: 1rem;
+}
+
+.auth-secondary-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.auth-submit {
+  margin-bottom: 1.5rem;
+}
+
+.password-toggle {
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-border-color: var(--bs-border-color);
+  --bs-btn-active-border-color: var(--bs-border-color);
+  --bs-btn-color: #6c757d;
+  --bs-btn-hover-color: #495057;
+  --bs-btn-active-color: #495057;
+  background-color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .auth-card-body {
+    padding: 3rem;
+  }
+}
+
+@keyframes authSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

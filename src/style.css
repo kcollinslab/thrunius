@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --bs-body-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.72)),
+    linear-gradient(135deg, #f4efe6 0%, #dbeafe 48%, #fef3c7 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Sobrescribir variables de Bootstrap */
+  --bs-border-radius: 0.5em;
+  --bs-border-radius-sm: 0.25em;
+  --bs-border-radius-lg: 0.5em;
+  --bs-border-radius-xl: 0.5em;
+  --bs-border-radius-2xl: 0.5em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.home-shell {
+  min-height: 100vh;
+}
+
+.home-card {
+  padding: 3rem 2rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 0.5em;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.connection-panel {
+  padding: 1.25rem;
+  border-radius: 0.5em;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(248, 250, 252, 0.85);
+}
+
+.register-card {
+  padding: 2rem;
+  height: 100%;
+  border-radius: 0.5em;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.register-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5em;
+  background: #111827;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.form-control, .form-select, .btn {
+  border-radius: 0.5em;
+}
+
+/* Asegurar que el radio se mantenga en botones que no sean grupos de entrada si es necesario */
+.btn-dark {
+  border-radius: 0.5em;
+}
+
+.form-control {
+  border-radius: 3px;
+}
+.form-select {
+  border-radius: 3px;
+}
+
+.form-control:focus {
+  border-color: #111827;
+  box-shadow: 0 0 0 0.25rem rgba(17, 24, 39, 0.12);
+}
+
+.btn-dark {
+  padding: 0.9rem 1rem;
+}
+
+@media (max-width: 576px) {
+  .home-card {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .register-card {
+    padding: 1.5rem;
+  }
+}
