@@ -218,7 +218,7 @@ function updateSlug() {
 </script>
 
 <template>
-  <div class="container-fluid py-3 edit-post-view">
+  <div class="container py-3 edit-post-view">
     <div class="row justify-content-center">
       <div class="col-12 col-xxl-10">
         <div v-if="loading" class="text-center py-5">

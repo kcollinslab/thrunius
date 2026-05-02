@@ -88,26 +88,34 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container-fluid py-5">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
-      <div>
-        <h1 class="h2 fw-bold mb-1">Publicaciones</h1>
-        <p class="text-muted mb-0">Gestiona y visualiza las noticias de ThruNius</p>
+  <div class="container-fluid py-2">
+    <div class="row mb-3">
+      <div class="col-6">
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Buscar por título o resumen..."
+          v-model="feedback.message"
+          @input="feedback.message = ''"
+          aria-label="Buscar publicaciones por título o resumen"
+        >
       </div>
-      <div class="d-flex gap-2">
+      <div class="col-6">
+        <div>
+          <router-link to="/posts/new" class="btn btn-dark d-flex align-items-center gap-2">
+            <i class="bi bi-plus-lg"></i>
+            <span>Nueva Publicación</span>
+          </router-link>
+        </div>
         <button 
           v-if="selectedIds.length > 0"
           @click="openDeleteModal"
-          class="btn btn-outline-danger delete-selected-btn d-flex align-items-center justify-content-center"
+          class="btn btn-danger delete-selected-btn d-flex align-items-center justify-content-center"
           :aria-label="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
           :title="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
         >
-          <i class="bi bi-trash"></i>
+          <i class="bi bi-trash-fill"></i>
         </button>
-        <router-link to="/posts/new" class="btn btn-dark d-flex align-items-center gap-2">
-          <i class="bi bi-plus-lg"></i>
-          <span>Nueva Publicación</span>
-        </router-link>
       </div>
     </div>
 

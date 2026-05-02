@@ -1,8 +1,0 @@
-# .codex/config.toml
-
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-
-[mcp_servers.supabase]
-url = "https://mcp.supabase.com/mcp?project_ref=ulrybwdirjrqhszpztoo&read_only=true"
-enabled = true

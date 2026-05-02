@@ -25,7 +25,7 @@ function getRecoveryRedirectUrl() {
   const basePath = import.meta.env.BASE_URL || '/'
   const normalizedBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`
 
-  return new URL(`${normalizedBasePath}login`, window.location.origin).toString()
+  return new URL(`${normalizedBasePath}new-password`, window.location.origin).toString()
 }
 
 async function handlePasswordRecovery() {

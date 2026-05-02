@@ -130,7 +130,7 @@ function updateSlug() {
 </script>
 
 <template>
-  <div class="container-fluid py-3 create-post-view">
+  <div class="container py-3 create-post-view">
     <div class="row justify-content-center">
       <div class="col-12 col-xxl-10">
         <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-3">

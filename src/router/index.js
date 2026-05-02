@@ -2,6 +2,7 @@
 import LoginView from '../views/auth/LoginView.vue'
 import RegisterView from '../views/auth/RegisterView.vue'
 import RecoveryPassword from '../views/auth/RecoveryPassword.vue'
+import NewPassword from '../views/auth/NewPassword.vue'
 import ProfileView from '../views/profile/ProfileView.vue'
 import PostsView from '../views/posts/PostsView.vue'
 import PostsListView from '../views/posts/PostsListView.vue'
@@ -44,6 +45,12 @@ const routes = [
     name: 'forgot-password',
     component: RecoveryPassword,
     meta: { title: 'Recuperar contraseña', isPublic: true }
+  },
+  {
+    path: '/new-password',
+    name: 'new-password',
+    component: NewPassword,
+    meta: { title: 'Nueva contraseña', isPublic: true }
   },
   {
     path: '/profile',
