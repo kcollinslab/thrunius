@@ -1,5 +1,5 @@
 <script setup>
-import RegisterForm from '../../components/RegisterForm.vue'
+import EmailRegisterForm from '../../components/EmailRegisterForm.vue'
 import '../../assets/auth.css'
 </script>
 
@@ -10,7 +10,7 @@ import '../../assets/auth.css'
         <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
           <section class="auth-card bg-white overflow-hidden">
             <div class="auth-card-body">
-              <RegisterForm />
+              <EmailRegisterForm />
 
               <div class="text-center">
                 <p class="text-muted mb-0">

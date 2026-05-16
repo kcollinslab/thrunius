@@ -89,33 +89,33 @@ onMounted(() => {
 
 <template>
   <div class="container-fluid py-2">
-    <div class="row mb-3">
-      <div class="col-6">
+    <div class="row mb-3 g-2 align-items-center">
+      <div class="col-12 col-md-6">
         <input
           type="text"
-          class="form-control form-control-sm"
+          class="form-control post-search-input"
           placeholder="Buscar por título o resumen..."
           v-model="feedback.message"
           @input="feedback.message = ''"
           aria-label="Buscar publicaciones por título o resumen"
         >
       </div>
-      <div class="col-6">
-        <div>
-          <router-link to="/posts/new" class="btn btn-dark d-flex align-items-center gap-2">
+      <div class="col-12 col-md-6">
+        <div class="post-actions d-flex justify-content-end gap-2">
+          <router-link to="/posts/new" class="btn btn-dark post-action-btn d-flex align-items-center justify-content-center gap-2">
             <i class="bi bi-plus-lg"></i>
             <span>Nueva Publicación</span>
           </router-link>
+          <button
+            v-if="selectedIds.length > 0"
+            @click="openDeleteModal"
+            class="btn btn-danger post-action-btn delete-selected-btn d-flex align-items-center justify-content-center"
+            :aria-label="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
+            :title="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
         </div>
-        <button 
-          v-if="selectedIds.length > 0"
-          @click="openDeleteModal"
-          class="btn btn-danger delete-selected-btn d-flex align-items-center justify-content-center"
-          :aria-label="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
-          :title="`Eliminar ${selectedIds.length} ${selectedIds.length === 1 ? 'publicación' : 'publicaciones'}`"
-        >
-          <i class="bi bi-trash-fill"></i>
-        </button>
       </div>
     </div>
 
@@ -267,9 +267,35 @@ onMounted(() => {
   text-decoration: underline !important;
 }
 
+.post-search-input {
+  height: 42px;
+  min-height: 42px;
+  border-radius: 50rem;
+}
+
+.post-action-btn {
+  height: 42px;
+  min-height: 42px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .delete-selected-btn {
-  height: 38px;
-  width: 38px;
+  width: 42px;
   padding: 0;
+}
+
+@media (max-width: 576px) {
+  .post-actions {
+    flex-direction: column;
+  }
+
+  .post-action-btn {
+    width: 100%;
+  }
+
+  .delete-selected-btn {
+    width: 100%;
+  }
 }
 </style>
