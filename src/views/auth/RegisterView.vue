@@ -1,6 +1,6 @@
 <script setup>
 import EmailRegisterForm from '../../components/EmailRegisterForm.vue'
-import '../../assets/auth.css'
+import '../../assets/styles/auth.css'
 </script>
 
 <template>

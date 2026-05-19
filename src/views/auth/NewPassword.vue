@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
-import '../../assets/auth.css'
+import '../../assets/styles/auth.css'
 
 const router = useRouter()
 const toast = useToast()

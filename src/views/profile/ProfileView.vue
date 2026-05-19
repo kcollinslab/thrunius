@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
 
 const router = useRouter()
+const toast = useToast()
 const user = ref(null)
 const profile = ref({
   full_name: '',
@@ -15,7 +17,6 @@ const profile = ref({
 const loading = ref(true)
 const isEditing = ref(false)
 const updateLoading = ref(false)
-const feedback = ref({ type: '', message: '' })
 
 const ROLE_LABELS = {
   admin: { label: 'Administrador', class: 'text-bg-dark' },
@@ -53,7 +54,6 @@ onMounted(async () => {
 
 async function handleUpdateProfile() {
   updateLoading.value = true
-  feedback.value = { type: '', message: '' }
   
   try {
     if (!user.value?.id) {
@@ -82,10 +82,10 @@ async function handleUpdateProfile() {
     })
 
     isEditing.value = false
-    feedback.value = { type: 'success', message: '¡Perfil actualizado correctamente!' }
+    toast.success('Perfil actualizado correctamente.')
   } catch (error) {
     console.error('[ProfileView] Error crítico al actualizar:', error)
-    feedback.value = { type: 'danger', message: error.message || 'Error al actualizar.' }
+    toast.error(error.message || 'Error al actualizar el perfil.')
   } finally {
     updateLoading.value = false
   }
@@ -118,11 +118,6 @@ async function handleUpdateProfile() {
           </div>
           
           <div class="card-body p-4">
-            <div v-if="feedback.message" class="alert alert-dismissible fade show" :class="`alert-${feedback.type}`" role="alert">
-              {{ feedback.message }}
-              <button type="button" class="btn-close" @click="feedback.message = ''"></button>
-            </div>
-
             <div v-if="!isEditing" class="profile-info">
               <div class="row g-4 mb-4">
                 <div class="col-md-6">
@@ -146,7 +141,7 @@ async function handleUpdateProfile() {
                   <p class="bg-light p-3 about-text">{{ profile.about || 'Cuéntanos algo sobre ti...' }}</p>
                 </div>
               </div>
-              <button @click="isEditing = true" class="btn btn-dark rounded-pill px-4">
+              <button @click="isEditing = true" class="btn btn-dark px-4">
                 <i class="bi bi-pencil-square me-2"></i> Editar Perfil
               </button>
             </div>
@@ -176,11 +171,11 @@ async function handleUpdateProfile() {
                   <textarea v-model="profile.about" class="form-control" rows="3" placeholder="Algo sobre ti..."></textarea>
                 </div>
                 <div class="col-12 mt-4 d-flex gap-2">
-                  <button type="submit" class="btn btn-dark rounded-pill px-4" :disabled="updateLoading">
+                  <button type="submit" class="btn btn-dark px-4" :disabled="updateLoading">
                     <span v-if="updateLoading" class="spinner-border spinner-border-sm me-1"></span>
                     Guardar Cambios
                   </button>
-                  <button type="button" @click="isEditing = false" class="btn btn-light border rounded-pill px-4" :disabled="updateLoading">
+                  <button type="button" @click="isEditing = false" class="btn btn-light border px-4" :disabled="updateLoading">
                     Cancelar
                   </button>
                 </div>
@@ -207,9 +202,5 @@ async function handleUpdateProfile() {
 }
 .bg-dark {
   background: linear-gradient(135deg, #111 0%, #333 100%) !important;
-}
-.form-control:focus, .form-select:focus {
-  border-color: #212529;
-  box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.1);
 }
 </style>

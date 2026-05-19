@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
-import '../../assets/auth.css'
+import '../../assets/styles/auth.css'
 
 const toast = useToast()
 
