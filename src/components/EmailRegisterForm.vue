@@ -85,6 +85,9 @@ async function handleRegister() {
   <div class="auth-form-container">
     <div class="auth-heading">
       <h2 class="auth-title h3 fw-bold">Crear cuenta</h2>
+      <p class="auth-subtitle">
+        Completa tus datos y confirma el acceso desde tu correo.
+      </p>
     </div>
 
     <form class="auth-form" @submit.prevent="handleRegister">

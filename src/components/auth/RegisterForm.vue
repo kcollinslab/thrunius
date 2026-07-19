@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import { hasSupabaseConfig, supabase } from '../lib/supabase'
+import { hasSupabaseConfig, supabase } from '../../lib/supabase'
 
 const router = useRouter()
 const toast = useToast()
@@ -101,6 +101,9 @@ async function handleRegister() {
   <div class="auth-form-container">
     <div class="auth-heading">
       <h2 class="auth-title h3 fw-bold">Crear cuenta</h2>
+      <p class="auth-subtitle">
+        Registra tu correo y crea una contraseña segura.
+      </p>
     </div>
 
     <form class="auth-form" @submit.prevent="handleRegister">

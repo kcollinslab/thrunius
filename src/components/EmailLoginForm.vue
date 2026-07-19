@@ -77,7 +77,10 @@ async function handleLogin() {
 <template>
   <div class="auth-form-container">
     <div class="auth-heading">
-      <h2 class="auth-title h3 fw-bold">Bienvenido</h2>
+      <h2 class="auth-title h3 fw-bold">Acceso por enlace</h2>
+      <p class="auth-subtitle">
+        Te enviaremos un enlace de acceso seguro a tu correo.
+      </p>
     </div>
 
     <form class="auth-form" @submit.prevent="handleLogin">

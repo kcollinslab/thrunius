@@ -154,9 +154,17 @@ onMounted(() => {
         <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
           <section class="auth-card bg-white overflow-hidden">
             <div class="auth-card-body">
+              <div class="auth-brand" aria-label="Thrunius">
+                <span class="auth-brand-mark" aria-hidden="true">T</span>
+                <span>Thrunius</span>
+              </div>
+
               <div class="auth-form-container">
                 <div class="auth-heading">
                   <h2 class="auth-title h3 fw-bold">Nueva contraseña</h2>
+                  <p class="auth-subtitle">
+                    Elige una contraseña segura que no uses en otros servicios.
+                  </p>
                 </div>
 
                 <form class="auth-form" @submit.prevent="handlePasswordUpdate">
@@ -226,7 +234,7 @@ onMounted(() => {
                 </form>
               </div>
 
-              <div class="text-center">
+              <div class="auth-footer">
                 <p class="text-muted mb-0">
                   ¿Ya tienes acceso?
                   <RouterLink to="/login" class="auth-link fw-bold text-decoration-none">

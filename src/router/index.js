@@ -32,7 +32,13 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView,
-    meta: { title: 'Iniciar sesión', isPublic: true }
+    meta: { title: 'Iniciar sesión', isPublic: true, authMethod: 'password' }
+  },
+  {
+    path: '/login/link',
+    name: 'login-link',
+    component: LoginView,
+    meta: { title: 'Iniciar sesión con magic link', isPublic: true, authMethod: 'magic-link' }
   },
   {
     path: '/register',

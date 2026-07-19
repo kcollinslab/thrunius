@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { hasSupabaseConfig, supabase } from './lib/supabase'
 import { withTimeout } from './lib/asyncTimeout'
-import Sidebar from './components/Sidebar.vue'
+import Sidebar from './components/navigation/Sidebar.vue'
 
 const router = useRouter()
 const route = useRoute()
