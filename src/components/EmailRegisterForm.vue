@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../lib/supabase'
+import { getAppUrl } from '../lib/appUrl'
 
 const toast = useToast()
 
@@ -50,7 +51,7 @@ async function handleRegister() {
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${window.location.origin}/profile`,
+        emailRedirectTo: getAppUrl('profile'),
         data: {
           name,
           full_name: name,

@@ -4,6 +4,7 @@ import vuetify from 'vite-plugin-vuetify'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/thrunius/',
   plugins: [
     vue(),
     vuetify({ autoImport: true }),

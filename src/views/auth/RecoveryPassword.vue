@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
+import { getAppUrl } from '../../lib/appUrl'
 import '../../assets/styles/auth.css'
 
 const toast = useToast()
@@ -19,13 +20,6 @@ const feedbackClasses = {
   error: 'alert-danger',
   success: 'alert-success',
   warning: 'alert-warning',
-}
-
-function getRecoveryRedirectUrl() {
-  const basePath = import.meta.env.BASE_URL || '/'
-  const normalizedBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`
-
-  return new URL(`${normalizedBasePath}new-password`, window.location.origin).toString()
 }
 
 async function handlePasswordRecovery() {
@@ -53,7 +47,7 @@ async function handlePasswordRecovery() {
 
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: getRecoveryRedirectUrl(),
+      redirectTo: getAppUrl('new-password'),
     })
 
     if (error) {

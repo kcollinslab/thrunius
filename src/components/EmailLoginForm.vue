@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../lib/supabase'
+import { getAppUrl } from '../lib/appUrl'
 
 const toast = useToast()
 
@@ -48,7 +49,7 @@ async function handleLogin() {
       email,
       options: {
         shouldCreateUser: false,
-        emailRedirectTo: `${window.location.origin}/profile`,
+        emailRedirectTo: getAppUrl('profile'),
       },
     })
 
