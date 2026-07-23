@@ -14,11 +14,15 @@ import FilesListView from '../views/files/FilesListView.vue'
 import FilesCreateView from '../views/files/FilesCreateView.vue'
 import FilesEditView from '../views/files/FilesEditView.vue'
 import MemoriaColores from '../views/games/MemoriaColores.vue'
+import ArticlesExplore from '../views/articles/ArticlesExplore.vue'
+import ArticleRead from '../views/articles/ArticleRead.vue'
 import ProfilesView from '../views/profiles/ProfilesView.vue'
 import ProfilesListView from '../views/profiles/ProfilesListView.vue'
 import EditProfileView from '../views/profiles/EditProfileView.vue'
+import ChangePassword from '../views/profiles/ChangePassword.vue'
 import { supabase } from '../lib/supabase'
 import { withTimeout, isTimeoutError } from '../lib/asyncTimeout'
+import { hasRecentPasswordRecoveryRequest } from '../lib/passwordRecoveryFlow'
 
 const APP_NAME = 'Thrunius'
 const AUTH_CHECK_TIMEOUT_MS = 10000
@@ -26,7 +30,7 @@ const AUTH_CHECK_TIMEOUT_MS = 10000
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: getHomeRedirect
   },
   {
     path: '/login',
@@ -65,6 +69,12 @@ const routes = [
     meta: { title: 'Mi perfil', requiresAuth: true }
   },
   {
+    path: '/change_password',
+    name: 'change-password',
+    component: ChangePassword,
+    meta: { title: 'Cambiar contraseña', requiresAuth: true }
+  },
+  {
     path: '/files',
     name: 'files',
     component: FilesListView,
@@ -87,6 +97,18 @@ const routes = [
     name: 'memoria-colores',
     component: MemoriaColores,
     meta: { title: 'Memoria de colores', isPublic: true }
+  },
+  {
+    path: '/articulos',
+    name: 'articles-explore',
+    component: ArticlesExplore,
+    meta: { title: 'Artículos', isPublic: true }
+  },
+  {
+    path: '/articulos/lectura/:slug',
+    name: 'article-read',
+    component: ArticleRead,
+    meta: { title: 'Leer artículo', isPublic: true }
   },
   {
     path: '/posts',
@@ -143,6 +165,42 @@ const routes = [
     ]
   }
 ]
+
+function getFirstQueryValue(value) {
+  return Array.isArray(value) ? value[0] : value
+}
+
+function getHashParams(hash) {
+  const normalizedHash = String(hash || '').replace(/^#/, '')
+  const queryString = normalizedHash.startsWith('/')
+    ? normalizedHash.split('?')[1] || ''
+    : normalizedHash
+
+  return new URLSearchParams(queryString)
+}
+
+function isPasswordRecoveryRedirect(to) {
+  const hashParams = getHashParams(to.hash)
+  const queryType = getFirstQueryValue(to.query?.type)
+
+  return (
+    queryType === 'recovery'
+    || hashParams.get('type') === 'recovery'
+    || hasRecentPasswordRecoveryRequest()
+  )
+}
+
+function getHomeRedirect(to) {
+  if (isPasswordRecoveryRedirect(to)) {
+    return {
+      name: 'new-password',
+      query: to.query,
+      hash: to.hash,
+    }
+  }
+
+  return { name: 'login' }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

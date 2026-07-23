@@ -1,9 +1,8 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
-import { forgetPasswordRecoveryRequest } from '../../lib/passwordRecoveryFlow'
 import '../../assets/styles/auth.css'
 
 const router = useRouter()
@@ -13,16 +12,17 @@ const form = ref({
   password: '',
   confirmPassword: '',
 })
+const user = ref(null)
+const hasPassword = ref(false)
+const isLoading = ref(true)
+const isSubmitting = ref(false)
+const loadError = ref('')
 const feedback = ref({
   type: '',
   message: '',
 })
-const isCheckingSession = ref(true)
-const isSubmitting = ref(false)
-const hasRecoverySession = ref(false)
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
-let authSubscription
 
 const feedbackClasses = {
   error: 'alert-danger',
@@ -32,38 +32,20 @@ const feedbackClasses = {
 
 const canSubmit = computed(() => (
   hasSupabaseConfig
-  && hasRecoverySession.value
-  && !isCheckingSession.value
+  && Boolean(user.value)
+  && !isLoading.value
   && !isSubmitting.value
+  && !loadError.value
+))
+
+const passwordDescription = computed(() => (
+  hasPassword.value
+    ? 'Tu cuenta ya tiene una contraseña. Al guardar, reemplazarás la actual.'
+    : 'Tu cuenta aún no tiene una contraseña. Crea una para poder iniciar sesión con correo y contraseña.'
 ))
 
 function setFeedback(type, message) {
   feedback.value = { type, message }
-}
-
-function getSearchParams() {
-  return new URLSearchParams(window.location.search)
-}
-
-function getHashParams() {
-  return new URLSearchParams(window.location.hash.replace(/^#/, ''))
-}
-
-function clearRecoveryUrl() {
-  const cleanUrl = `${window.location.origin}${window.location.pathname}`
-  window.history.replaceState({}, document.title, cleanUrl)
-}
-
-function getRecoveryUrlError() {
-  const searchParams = getSearchParams()
-  const hashParams = getHashParams()
-  return (
-    searchParams.get('error_description')
-    || searchParams.get('error')
-    || hashParams.get('error_description')
-    || hashParams.get('error')
-    || ''
-  )
 }
 
 function getPasswordValidationError() {
@@ -85,98 +67,76 @@ function getPasswordValidationError() {
   return ''
 }
 
-function enableRecoverySession() {
-  forgetPasswordRecoveryRequest()
-  hasRecoverySession.value = true
-  isCheckingSession.value = false
-  setFeedback('', '')
+function isPasswordProvider(provider) {
+  return provider === 'email' || provider === 'phone'
 }
 
-async function exchangeCodeSession(code) {
-  const { error } = await supabase.auth.exchangeCodeForSession(code)
-  if (error) throw error
-  clearRecoveryUrl()
+function detectPasswordIdentity(authenticatedUser, identities = []) {
+  const identityProviders = identities
+    .map((identity) => identity?.provider)
+    .filter(Boolean)
+
+  const metadataProviders = Array.isArray(authenticatedUser?.app_metadata?.providers)
+    ? authenticatedUser.app_metadata.providers
+    : []
+
+  return [...identityProviders, ...metadataProviders].some(isPasswordProvider)
 }
 
-async function setHashSession(hashParams) {
-  const accessToken = hashParams.get('access_token')
-  const refreshToken = hashParams.get('refresh_token')
+async function loadUser() {
+  isLoading.value = true
+  loadError.value = ''
 
-  if (!accessToken || !refreshToken) return false
-
-  const { error } = await supabase.auth.setSession({
-    access_token: accessToken,
-    refresh_token: refreshToken,
-  })
-
-  if (error) throw error
-
-  clearRecoveryUrl()
-  return true
-}
-
-async function checkRecoverySession() {
   if (!supabase) {
-    setFeedback('error', 'La configuración de Supabase no está completa en esta app.')
-    isCheckingSession.value = false
-    return
-  }
-
-  const recoveryError = getRecoveryUrlError()
-
-  if (recoveryError) {
-    setFeedback('error', recoveryError.replace(/\+/g, ' '))
-    isCheckingSession.value = false
+    loadError.value = 'La configuración de Supabase no está completa en esta app.'
+    isLoading.value = false
     return
   }
 
   try {
-    const searchParams = getSearchParams()
-    const hashParams = getHashParams()
-    const code = searchParams.get('code')
+    const { data: userData, error: userError } = await supabase.auth.getUser()
 
-    if (code) {
-      await exchangeCodeSession(code)
-    } else {
-      await setHashSession(hashParams)
-    }
+    if (userError) throw userError
 
-    const { data, error } = await supabase.auth.getSession()
+    const authenticatedUser = userData?.user
 
-    if (error) throw error
-
-    if (!data?.session) {
-      setFeedback(
-        'warning',
-        'El enlace de recuperación no es válido o ya expiró. Solicita uno nuevo.',
-      )
+    if (!authenticatedUser) {
+      await router.replace({ name: 'login' })
       return
     }
 
-    enableRecoverySession()
+    let identities = authenticatedUser.identities || []
+
+    if (typeof supabase.auth.getUserIdentities === 'function') {
+      const { data: identityData, error: identityError } = await supabase.auth.getUserIdentities()
+
+      if (identityError) throw identityError
+
+      identities = identityData?.identities || identities
+    }
+
+    user.value = authenticatedUser
+    hasPassword.value = detectPasswordIdentity(authenticatedUser, identities)
   } catch (error) {
-    console.error('Error al validar recuperación de contraseña:', error)
-    setFeedback(
-      'error',
-      error.message || 'No se pudo validar el enlace de recuperación. Solicita uno nuevo.',
-    )
+    console.error('[ChangePassword] No se pudo cargar el usuario:', error)
+    loadError.value = error.message || 'No se pudo validar tu cuenta.'
   } finally {
-    isCheckingSession.value = false
+    isLoading.value = false
   }
 }
 
 async function handlePasswordUpdate() {
-  setFeedback('', '')
-
-  if (!supabase) {
-    setFeedback('error', 'La configuración de Supabase no está completa en esta app.')
-    return
-  }
+  feedback.value = { type: '', message: '' }
 
   const validationError = getPasswordValidationError()
 
   if (validationError) {
     setFeedback('warning', validationError)
+    return
+  }
+
+  if (!supabase || !user.value) {
+    setFeedback('error', 'No se encontró una sesión válida para actualizar la contraseña.')
     return
   }
 
@@ -193,40 +153,18 @@ async function handlePasswordUpdate() {
       password: '',
       confirmPassword: '',
     }
+    hasPassword.value = true
     setFeedback('success', 'Tu contraseña se actualizó correctamente.')
     toast.success('Contraseña actualizada.')
-    forgetPasswordRecoveryRequest()
-
-    await supabase.auth.signOut()
-
-    setTimeout(() => {
-      router.push({ name: 'login' })
-    }, 1200)
   } catch (error) {
-    console.error('Error al actualizar contraseña:', error)
+    console.error('[ChangePassword] No se pudo actualizar la contraseña:', error)
     setFeedback('error', error.message || 'No se pudo actualizar la contraseña.')
   } finally {
     isSubmitting.value = false
   }
 }
 
-onMounted(() => {
-  if (supabase) {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'PASSWORD_RECOVERY' && session?.user) {
-        enableRecoverySession()
-        clearRecoveryUrl()
-      }
-    })
-    authSubscription = data.subscription
-  }
-
-  checkRecoverySession()
-})
-
-onBeforeUnmount(() => {
-  authSubscription?.unsubscribe()
-})
+onMounted(loadUser)
 </script>
 
 <template>
@@ -243,23 +181,36 @@ onBeforeUnmount(() => {
 
               <div class="auth-form-container">
                 <div class="auth-heading">
-                  <h2 class="auth-title h3 fw-bold">Nueva contraseña</h2>
+                  <h1 class="auth-title h3 fw-bold">Cambiar contraseña</h1>
                   <p class="auth-subtitle">
-                    Asigna una contraseña segura para acceder a tu cuenta.
+                    {{ passwordDescription }}
                   </p>
                 </div>
 
-                <form class="auth-form" novalidate @submit.prevent="handlePasswordUpdate">
+                <div v-if="isLoading" class="alert alert-secondary" role="status">
+                  <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                  Validando tu cuenta...
+                </div>
+
+                <div v-else-if="loadError" class="alert alert-danger" role="alert">
+                  {{ loadError }}
+                  <button type="button" class="btn btn-link p-0 ms-1" @click="loadUser">
+                    Reintentar
+                  </button>
+                </div>
+
+                <form v-else class="auth-form" @submit.prevent="handlePasswordUpdate">
                   <div class="auth-field">
-                    <label for="new-password" class="form-label">Contraseña</label>
+                    <label for="change-password" class="form-label">Nueva contraseña</label>
                     <div class="input-group">
                       <input
-                        id="new-password"
+                        id="change-password"
                         v-model="form.password"
                         :type="showPassword ? 'text' : 'password'"
                         class="form-control"
                         placeholder="Mínimo 6 caracteres"
                         autocomplete="new-password"
+                        minlength="6"
                         required
                         :disabled="!canSubmit"
                       >
@@ -267,7 +218,7 @@ onBeforeUnmount(() => {
                         type="button"
                         class="btn password-toggle"
                         :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
-                        :disabled="!canSubmit"
+                        :disabled="isSubmitting"
                         @click="showPassword = !showPassword"
                       >
                         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
@@ -276,17 +227,18 @@ onBeforeUnmount(() => {
                   </div>
 
                   <div class="auth-field">
-                    <label for="confirm-new-password" class="form-label">
-                      Confirmar contraseña
+                    <label for="change-password-confirm" class="form-label">
+                      Confirmar nueva contraseña
                     </label>
                     <div class="input-group">
                       <input
-                        id="confirm-new-password"
+                        id="change-password-confirm"
                         v-model="form.confirmPassword"
                         :type="showConfirmPassword ? 'text' : 'password'"
                         class="form-control"
-                        placeholder="Repite tu contraseña"
+                        placeholder="Repite la nueva contraseña"
                         autocomplete="new-password"
+                        minlength="6"
                         required
                         :disabled="!canSubmit"
                       >
@@ -294,7 +246,7 @@ onBeforeUnmount(() => {
                         type="button"
                         class="btn password-toggle"
                         :aria-label="showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
-                        :disabled="!canSubmit"
+                        :disabled="isSubmitting"
                         @click="showConfirmPassword = !showConfirmPassword"
                       >
                         <i :class="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
@@ -323,26 +275,19 @@ onBeforeUnmount(() => {
                     :disabled="!canSubmit"
                   >
                     <span
-                      v-if="isSubmitting || isCheckingSession"
+                      v-if="isSubmitting"
                       class="spinner-border spinner-border-sm me-2"
                       aria-hidden="true"
                     ></span>
-                    {{
-                      isCheckingSession
-                        ? 'Validando enlace...'
-                        : isSubmitting
-                          ? 'Actualizando...'
-                          : 'Asignar contraseña'
-                    }}
+                    {{ isSubmitting ? 'Actualizando...' : 'Actualizar contraseña' }}
                   </button>
                 </form>
               </div>
 
               <div class="auth-footer">
                 <p class="text-muted mb-0">
-                  ¿Necesitas otro enlace?
-                  <RouterLink to="/forgot-password" class="auth-link fw-bold text-decoration-none">
-                    Solicitar recuperación
+                  <RouterLink to="/profile" class="auth-link fw-bold text-decoration-none">
+                    Volver a mi perfil
                   </RouterLink>
                 </p>
               </div>

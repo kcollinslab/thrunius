@@ -187,6 +187,13 @@ async function handleUpdateProfile() {
   }
 }
 
+function goToPasswordRecovery() {
+  router.push({
+    name: 'forgot-password',
+    query: { from: 'profile' },
+  })
+}
+
 onMounted(loadProfile)
 </script>
 
@@ -233,6 +240,15 @@ onMounted(loadProfile)
               <span aria-hidden="true"></span>
               Cuenta activa
             </div>
+
+            <button
+              type="button"
+              class="btn profile-password-action"
+              @click="goToPasswordRecovery"
+            >
+              <i class="bi bi-key" aria-hidden="true"></i>
+              Reestablecer contraseña
+            </button>
           </aside>
         </div>
 
@@ -579,6 +595,30 @@ onMounted(loadProfile)
   box-shadow: 0 0 0 3px rgba(34, 160, 107, 0.12);
 }
 
+.profile-password-action {
+  display: inline-flex;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #dfe2e6;
+  border-radius: var(--profile-radius);
+  background: #ffffff;
+  color: #34383e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.profile-password-action:hover {
+  border-color: #c7cbd1;
+  background: #f5f6f7;
+  color: #17191c;
+  transform: translateY(-1px);
+}
+
 .profile-content-card {
   overflow: hidden;
 }
@@ -795,7 +835,8 @@ onMounted(loadProfile)
 
 @media (prefers-reduced-motion: reduce) {
   .profile-primary-action,
-  .profile-secondary-action {
+  .profile-secondary-action,
+  .profile-password-action {
     transition: none;
   }
 }

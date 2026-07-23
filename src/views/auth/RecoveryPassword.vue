@@ -1,10 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
 import { getAppUrl } from '../../lib/appUrl'
+import {
+  forgetPasswordRecoveryRequest,
+  rememberPasswordRecoveryRequest,
+} from '../../lib/passwordRecoveryFlow'
 import '../../assets/styles/auth.css'
 
+const route = useRoute()
 const toast = useToast()
 
 const form = ref({
@@ -15,6 +21,8 @@ const feedback = ref({
   message: '',
 })
 const isSubmitting = ref(false)
+const isLoadingUserEmail = ref(false)
+const isAuthenticatedRecovery = ref(false)
 
 const feedbackClasses = {
   error: 'alert-danger',
@@ -22,53 +30,113 @@ const feedbackClasses = {
   warning: 'alert-warning',
 }
 
+const isFromProfile = computed(() => route.query?.from === 'profile')
+
+const pageTitle = computed(() => (
+  isAuthenticatedRecovery.value ? 'Restablecer contraseña' : 'Recuperar contraseña'
+))
+
+const pageSubtitle = computed(() => (
+  isAuthenticatedRecovery.value
+    ? 'Enviaremos un enlace seguro al correo de tu cuenta para asignar una nueva contraseña.'
+    : 'Escribe el correo de tu cuenta y te enviaremos un enlace seguro.'
+))
+
+const submitLabel = computed(() => (
+  isSubmitting.value ? 'Enviando...' : 'Enviar enlace'
+))
+
+const footerCopy = computed(() => (
+  isAuthenticatedRecovery.value
+    ? '¿Quieres volver a tu perfil?'
+    : '¿Ya recordaste tu contraseña?'
+))
+
+const footerLink = computed(() => (
+  isAuthenticatedRecovery.value
+    ? { to: '/profile', label: 'Volver al perfil' }
+    : { to: '/login', label: 'Inicia sesión' }
+))
+
+function setFeedback(type, message) {
+  feedback.value = { type, message }
+}
+
+function getEmailValidationError(email) {
+  if (!email) return 'Ingresa tu correo electrónico para continuar.'
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return 'Ingresa un correo electrónico válido.'
+  }
+  return ''
+}
+
+async function loadAuthenticatedUserEmail() {
+  if (!supabase || !isFromProfile.value) return
+
+  isLoadingUserEmail.value = true
+
+  try {
+    const { data, error } = await supabase.auth.getUser()
+    if (error) throw error
+
+    const email = data?.user?.email
+
+    if (email) {
+      form.value.email = email
+      isAuthenticatedRecovery.value = true
+    }
+  } catch (error) {
+    console.warn('No se pudo precargar el correo del usuario:', error)
+  } finally {
+    isLoadingUserEmail.value = false
+  }
+}
+
 async function handlePasswordRecovery() {
-  feedback.value = { type: '', message: '' }
+  setFeedback('', '')
 
   if (!supabase) {
-    feedback.value = {
-      type: 'error',
-      message: 'La configuración de Supabase no está completa en esta app.',
-    }
+    setFeedback('error', 'La configuración de Supabase no está completa en esta app.')
     return
   }
 
-  const email = form.value.email.trim()
+  const email = form.value.email.trim().toLowerCase()
+  const validationError = getEmailValidationError(email)
 
-  if (!email) {
-    feedback.value = {
-      type: 'warning',
-      message: 'Ingresa tu correo electrónico para continuar.',
-    }
+  if (validationError) {
+    setFeedback('warning', validationError)
     return
   }
 
   isSubmitting.value = true
 
   try {
+    rememberPasswordRecoveryRequest()
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: getAppUrl('new-password'),
     })
 
-    if (error) {
-      throw error
-    }
+    if (error) throw error
 
-    feedback.value = {
-      type: 'success',
-      message: 'Te enviamos un enlace para recuperar tu contraseña. Revisa tu correo.',
-    }
+    setFeedback(
+      'success',
+      'Si el correo está registrado, recibirás un enlace para asignar una nueva contraseña.',
+    )
     toast.success('Solicitud enviada. Revisa tu correo.')
     form.value.email = ''
   } catch (error) {
-    feedback.value = {
-      type: 'error',
-      message: error.message || 'No se pudo enviar el correo de recuperación.',
-    }
+    forgetPasswordRecoveryRequest()
+    console.error('Error al enviar recuperación de contraseña:', error)
+    setFeedback('error', error.message || 'No se pudo enviar el correo de recuperación.')
   } finally {
     isSubmitting.value = false
   }
 }
+
+onMounted(() => {
+  loadAuthenticatedUserEmail()
+})
 </script>
 
 <template>
@@ -85,13 +153,13 @@ async function handlePasswordRecovery() {
 
               <div class="auth-form-container">
                 <div class="auth-heading">
-                  <h2 class="auth-title h3 fw-bold">Recuperar contraseña</h2>
+                  <h2 class="auth-title h3 fw-bold">{{ pageTitle }}</h2>
                   <p class="auth-subtitle">
-                    Recibe un enlace seguro para volver a ingresar a tu cuenta.
+                    {{ pageSubtitle }}
                   </p>
                 </div>
 
-                <form class="auth-form" @submit.prevent="handlePasswordRecovery">
+                <form class="auth-form" novalidate @submit.prevent="handlePasswordRecovery">
                   <div class="auth-field">
                     <label for="recovery-email" class="form-label">Correo electrónico</label>
                     <input
@@ -102,7 +170,7 @@ async function handlePasswordRecovery() {
                       placeholder="tu@correo.com"
                       autocomplete="email"
                       required
-                      :disabled="isSubmitting"
+                      :disabled="isSubmitting || isLoadingUserEmail"
                     >
                   </div>
 
@@ -124,23 +192,23 @@ async function handlePasswordRecovery() {
                   <button
                     type="submit"
                     class="auth-submit btn btn-dark btn-lg w-100 fw-bold"
-                    :disabled="isSubmitting || !hasSupabaseConfig"
+                    :disabled="isSubmitting || isLoadingUserEmail || !hasSupabaseConfig"
                   >
                     <span
-                      v-if="isSubmitting"
+                      v-if="isSubmitting || isLoadingUserEmail"
                       class="spinner-border spinner-border-sm me-2"
                       aria-hidden="true"
                     ></span>
-                    {{ isSubmitting ? 'Enviando...' : 'Enviar enlace' }}
+                    {{ isLoadingUserEmail ? 'Cargando correo...' : submitLabel }}
                   </button>
                 </form>
               </div>
 
               <div class="auth-footer">
                 <p class="text-muted mb-0">
-                  ¿Ya recordaste tu contraseña?
-                  <RouterLink to="/login" class="auth-link fw-bold text-decoration-none">
-                    Inicia sesión
+                  {{ footerCopy }}
+                  <RouterLink :to="footerLink.to" class="auth-link fw-bold text-decoration-none">
+                    {{ footerLink.label }}
                   </RouterLink>
                 </p>
               </div>
