@@ -2,15 +2,27 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+// Props que controlan el estado visual y la información del usuario.
 const props = defineProps({
   isOpen: Boolean,
   isMobile: Boolean,
   user: Object,
 })
 
+// Eventos que el sidebar comunica a su componente padre.
 const emit = defineEmits(['toggle', 'logout', 'navigate'])
+
+// Ruta actual para identificar la sección activa del menú.
 const route = useRoute()
 
+// Opción pública de inicio, visible con o sin sesión iniciada.
+const HOME_MENU_ITEM = {
+  path: '/articulos',
+  label: 'Inicio',
+  icon: 'bi-house',
+}
+
+// Opciones de navegación disponibles según el rol del usuario.
 const ALL_MENU_ITEMS = [
   {
     path: '/posts',
@@ -22,7 +34,7 @@ const ALL_MENU_ITEMS = [
     path: '/files',
     label: 'Biblioteca',
     icon: 'bi-images',
-    roles: ['admin', 'editor', 'subscriber'],
+    roles: ['admin', 'editor'],
   },
   {
     path: '/profiles',
@@ -38,6 +50,7 @@ const ALL_MENU_ITEMS = [
   },
 ]
 
+// Equivalencias para aceptar nombres alternativos de roles.
 const ROLE_ALIASES = {
   administrator: 'admin',
   administrador: 'admin',
@@ -46,22 +59,29 @@ const ROLE_ALIASES = {
   suscriptora: 'subscriber',
 }
 
+// Roles permitidos por las opciones configuradas del menú.
 const KNOWN_MENU_ROLES = new Set(ALL_MENU_ITEMS.flatMap((item) => item.roles))
 
+// Texto visible asociado a cada rol reconocido.
 const ROLE_LABELS = {
   admin: 'Administrador',
   editor: 'Editor',
   subscriber: 'Suscriptor',
 }
 
+// Menú filtrado según el rol normalizado del usuario actual.
 const menuItems = computed(() => {
-  if (!props.user) return []
+  if (!props.user) return [HOME_MENU_ITEM]
 
   const userRole = normalizeUserRole(props.user)
 
-  return ALL_MENU_ITEMS.filter((item) => item.roles.includes(userRole))
+  return [
+    HOME_MENU_ITEM,
+    ...ALL_MENU_ITEMS.filter((item) => item.roles.includes(userRole)),
+  ]
 })
 
+// Nombre que se muestra usando las fuentes disponibles del usuario.
 const userDisplayName = computed(() => (
   props.user?.full_name
   || props.user?.name
@@ -70,8 +90,10 @@ const userDisplayName = computed(() => (
   || 'Usuario'
 ))
 
+// Etiqueta legible del rol actual del usuario.
 const userRoleLabel = computed(() => ROLE_LABELS[normalizeUserRole(props.user)] || 'Usuario')
 
+// Iniciales del usuario para mostrar en su avatar.
 const userInitials = computed(() => {
   const initials = userDisplayName.value
     .trim()
@@ -83,6 +105,7 @@ const userInitials = computed(() => {
   return initials.toUpperCase() || 'U'
 })
 
+// Obtiene y valida el rol del usuario, incluyendo alias conocidos.
 function normalizeUserRole(user) {
   const roleCandidates = [
     user?.role,
@@ -101,18 +124,24 @@ function normalizeUserRole(user) {
   return 'subscriber'
 }
 
+// Indica si una ruta corresponde a la sección activa del menú.
 function isMenuItemActive(path) {
-  return route.path === path || route.path.startsWith(`${path}/`)
+  return path === '/'
+    ? route.path === '/'
+    : route.path === path || route.path.startsWith(`${path}/`)
 }
 
+// Solicita al componente padre alternar la apertura del sidebar.
 function toggleSidebar() {
   emit('toggle')
 }
 
+// Notifica al componente padre que se seleccionó una navegación.
 function handleNavigate() {
   emit('navigate')
 }
 
+// Notifica al componente padre que se solicitó cerrar sesión.
 function handleLogout() {
   emit('logout')
 }
@@ -152,6 +181,18 @@ function handleLogout() {
 
       <nav class="sidebar-nav">
         <template v-if="!user">
+          <router-link
+            :to="HOME_MENU_ITEM.path"
+            class="nav-link-custom"
+            :class="{ 'is-section-active': isMenuItemActive(HOME_MENU_ITEM.path) }"
+            :title="!isOpen ? HOME_MENU_ITEM.label : ''"
+            @click="handleNavigate"
+          >
+            <i class="bi" :class="HOME_MENU_ITEM.icon" aria-hidden="true"></i>
+            <Transition name="fade-slide">
+              <span v-if="isOpen">{{ HOME_MENU_ITEM.label }}</span>
+            </Transition>
+          </router-link>
           <router-link
             to="/login"
             class="nav-link-custom"

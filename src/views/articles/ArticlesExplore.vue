@@ -189,20 +189,11 @@ onMounted(fetchArticles)
   <main class="articles-explore">
     <section class="news-header">
       <div class="news-shell">
-        <p class="news-kicker">Actualidad</p>
-        <div class="news-title-row">
-          <div>
-            <h1>Artículos y noticias</h1>
-            <p>
-              Una portada editorial con las historias recientes de Thrunius, novedades y contenidos de interés.
-            </p>
-          </div>
-
-          <button type="button" class="refresh-button" :disabled="loading" @click="fetchArticles">
-            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
-            Actualizar
-          </button>
+        <div class="news-brand" aria-label="Thrunius">
+          <span class="news-brand-mark" aria-hidden="true">T</span>
+          <span class="news-brand-name">THRUNIUS</span>
         </div>
+        <p class="news-brand-subtitle">Noticias y datos que no esperas</p>
       </div>
     </section>
 
@@ -360,8 +351,43 @@ onMounted(fetchArticles)
 }
 
 .news-header .news-shell {
-  padding-top: clamp(2rem, 5vw, 4.5rem);
-  padding-bottom: 1.5rem;
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: 0.9rem;
+}
+
+.news-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.news-brand-mark {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  background: #111111;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 850;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+}
+
+.news-brand-name {
+  color: #111111;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.news-brand-subtitle {
+  margin: 0.35rem 0 0;
+  color: #737373;
+  font-size: 0.82rem;
+  text-align: center;
 }
 
 .news-kicker,
@@ -372,30 +398,6 @@ onMounted(fetchArticles)
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.news-title-row {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.news-title-row h1 {
-  margin: 0.25rem 0 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(2rem, 5.5vw, 4.25rem);
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1;
-}
-
-.news-title-row p {
-  max-width: 640px;
-  margin: 1rem 0 0;
-  color: #525252;
-  font-size: 1rem;
-  line-height: 1.65;
 }
 
 .refresh-button {
