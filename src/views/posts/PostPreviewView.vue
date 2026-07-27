@@ -1,200 +1,615 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { supabase } from '../../lib/supabase'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { hasSupabaseConfig, supabase } from '../../lib/supabase'
 
 const route = useRoute()
-const router = useRouter()
-const post = ref(null)
-const loading = ref(true)
-const errorMsg = ref('')
 
-onMounted(async () => {
-  await fetchPost()
-})
+const post = ref(null)
+const images = ref([])
+const loading = ref(true)
+const loadError = ref('')
+
+const postId = computed(() => String(route.params.id || '').trim())
+const heroImage = computed(() => images.value[0] || null)
+const galleryImages = computed(() => images.value.slice(1))
+const tags = computed(() => normalizeTags(post.value?.tags))
 
 async function fetchPost() {
-  const id = route.params.id
   loading.value = true
-  
+  loadError.value = ''
+  post.value = null
+  images.value = []
+
+  if (!hasSupabaseConfig || !supabase) {
+    loadError.value = 'Supabase no está configurado en esta aplicación.'
+    loading.value = false
+    return
+  }
+
+  if (!postId.value) {
+    loadError.value = 'No se encontró la publicación solicitada.'
+    loading.value = false
+    return
+  }
+
   try {
     const { data, error } = await supabase
       .from('posts')
-      .select('*')
-      .eq('id', id)
-      .single()
+      .select(`
+        id,
+        title,
+        subtitle,
+        slug,
+        excerpt,
+        content,
+        tags,
+        keywords,
+        type_post,
+        visibility,
+        published_at,
+        created_at,
+        updated_at
+      `)
+      .eq('id', postId.value)
+      .maybeSingle()
 
     if (error) throw error
+
+    if (!data) {
+      loadError.value = 'La publicación no existe o no tienes permiso para verla.'
+      return
+    }
+
     post.value = data
-  } catch (err) {
-    console.error('Error fetching post:', err)
-    errorMsg.value = 'No se pudo cargar la vista previa de la publicación.'
+    images.value = await fetchPostImages(data.id)
+  } catch (error) {
+    console.error('Error al cargar vista previa:', error)
+    loadError.value = 'No se pudo cargar la vista previa. Intenta nuevamente.'
   } finally {
     loading.value = false
   }
 }
 
-const getVisibilityBadgeClass = (visibility) => {
-  switch (visibility) {
-    case 'Público': return 'text-bg-success'
-    case 'Privado': return 'text-bg-warning'
-    case 'Oculto': return 'text-bg-secondary'
-    default: return 'text-bg-light'
+async function fetchPostImages(postIdValue) {
+  if (!postIdValue) return []
+
+  try {
+    const { data, error } = await supabase
+      .from('files')
+      .select(`
+        id,
+        bucket_id,
+        storage_path,
+        thumbnail_path,
+        title,
+        alt_text,
+        is_main,
+        created_at
+      `)
+      .eq('post_id', postIdValue)
+      .eq('is_image', true)
+      .order('is_main', { ascending: false })
+      .order('created_at', { ascending: true })
+
+    if (error) throw error
+
+    return (data || [])
+      .map((file) => {
+        const storagePath = file.storage_path || file.thumbnail_path
+        const previewPath = file.thumbnail_path || file.storage_path
+        if (!storagePath || !previewPath) return null
+
+        const bucket = file.bucket_id || 'media'
+        return {
+          id: file.id,
+          title: file.title || '',
+          alt: file.alt_text || file.title || post.value?.title || '',
+          url: supabase.storage.from(bucket).getPublicUrl(storagePath).data.publicUrl,
+          previewUrl: supabase.storage.from(bucket).getPublicUrl(previewPath).data.publicUrl,
+        }
+      })
+      .filter(Boolean)
+  } catch (error) {
+    console.warn('No se pudieron cargar imágenes de la publicación:', error)
+    return []
   }
 }
 
-function formatDate(date) {
-  if (!date) return 'N/A'
-  return new Date(date).toLocaleString('es-ES', {
+function normalizeTags(tagsValue) {
+  if (!tagsValue) return []
+  if (Array.isArray(tagsValue)) return tagsValue.filter(Boolean)
+
+  return String(tagsValue)
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+}
+
+function stripHtml(value) {
+  return String(value || '').replace(/<[^>]*>/g, ' ')
+}
+
+function getSummary(postValue) {
+  return postValue?.excerpt || postValue?.subtitle || ''
+}
+
+function getReadingTime(postValue) {
+  const words = stripHtml(`${postValue?.title || ''} ${postValue?.excerpt || ''} ${postValue?.content || ''}`)
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length
+
+  return `${Math.max(1, Math.ceil(words / 220))} min de lectura`
+}
+
+function formatDate(value) {
+  if (!value) return 'Fecha por confirmar'
+
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return 'Fecha por confirmar'
+
+  return new Intl.DateTimeFormat('es-CO', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+  }).format(date)
 }
+
+function getVisibilityClass(visibility) {
+  return {
+    'preview-status-public': visibility === 'Público',
+    'preview-status-private': visibility === 'Privado',
+    'preview-status-hidden': visibility === 'Oculto',
+  }
+}
+
+watch(postId, fetchPost)
+onMounted(fetchPost)
 </script>
 
 <template>
-  <div class="container-fluid py-3">
-    <div v-if="loading" class="text-center py-5">
-      <div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden">Cargando...</span>
+  <main class="article-read post-preview">
+    <section v-if="loading" class="read-state">
+      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+      <span>Cargando vista previa...</span>
+    </section>
+
+    <section v-else-if="loadError" class="read-state read-state-error" role="alert">
+      <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+      <span>{{ loadError }}</span>
+      <div class="state-actions">
+        <button type="button" class="read-button" @click="fetchPost">Reintentar</button>
+        <RouterLink to="/posts" class="read-button read-button-light">Volver a publicaciones</RouterLink>
       </div>
-    </div>
+    </section>
 
-    <div v-else-if="errorMsg" class="alert alert-danger mx-auto" style="max-width: 600px;">
-      <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMsg }}
-    </div>
+    <template v-else-if="post">
+      <header class="article-header">
+        <div class="read-shell">
+          <RouterLink to="/posts" class="back-link">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Publicaciones
+          </RouterLink>
 
-    <div v-else-if="post" class="row justify-content-center">
-      <!-- Columna Principal de Contenido -->
-      <div class="col-md-12 col-xl-8">
-        <div class="card border-0 shadow-sm overflow-hidden mb-4" style="border-radius: 0.5em;">
+          <h1>{{ post.title || 'Publicación sin título' }}</h1>
+          <p v-if="post.subtitle" class="article-subtitle">{{ post.subtitle }}</p>
 
-          <!-- Banner de Estado para el Administrador -->
-          <div class="p-2 text-center small fw-bold text-uppercase" :class="getVisibilityBadgeClass(post.visibility)">
-            Estado actual: {{ post.visibility }}
-          </div>
-          
-          <div class="card-body p-4 p-md-5">
-            <nav aria-label="breadcrumb" class="mb-3">
-              <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item small text-uppercase fw-bold">{{ post.type_post }}</li>
-                <li class="breadcrumb-item active small text-uppercase" aria-current="page">{{ post.slug }}</li>
-              </ol>
-            </nav>
-
-            <h1 class="display-5 fw-bold text-dark mb-3">{{ post.title }}</h1>
-            <p v-if="post.subtitle" class="lead text-secondary mb-4 border-start ps-4 py-1">{{ post.subtitle }}</p>
-
-            <div v-if="post.excerpt" class="bg-light p-4 rounded mb-5 italic-excerpt">
-              <i class="bi bi-quote fs-2 text-muted opacity-25 d-block mb-n3"></i>
-              <p class="mb-0 fs-5 text-muted">{{ post.excerpt }}</p>
-            </div>
-
-            <div class="post-content mb-5" v-html="post.content || '<p class=\'text-muted\'>Sin contenido disponible.</p>'"></div>
-
-            <!-- Tags -->
-            <div v-if="post.tags && post.tags.length" class="d-flex flex-wrap gap-2 pt-4 border-top">
-              <span v-for="tag in post.tags" :key="tag" class="badge bg-light text-dark border fw-normal">
-                #{{ tag }}
-              </span>
-            </div>
+          <div class="article-meta">
+            <span>{{ formatDate(post.published_at || post.created_at) }}</span>
+            <span>{{ getReadingTime(post) }}</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      <!-- Barra Lateral de Metadatos -->
-      <div class="col-md-12 col-xl-4">
-        <div class="card border-0 shadow-sm sticky-top" style="top: 20px; border-radius: 0.5em;">
-          <div class="card-header bg-white border-bottom p-3">
-            <h5 class="mb-0 fw-bold small text-uppercase text-muted">Detalles Técnicos</h5>
+      <section class="read-shell article-layout">
+        <article class="article-content">
+          <figure class="hero-media">
+            <img
+              v-if="heroImage?.url"
+              :src="heroImage.url"
+              :alt="heroImage.alt || post.title"
+              loading="eager"
+            >
+            <div v-else class="hero-placeholder">
+              <i class="bi bi-newspaper" aria-hidden="true"></i>
+            </div>
+            <figcaption v-if="heroImage?.title">{{ heroImage.title }}</figcaption>
+          </figure>
+
+          <p v-if="getSummary(post)" class="article-summary">
+            {{ getSummary(post) }}
+          </p>
+
+          <div v-if="post.content" class="article-body" v-html="post.content"></div>
+
+          <div v-else class="article-body">
+            <p>Esta publicación aún no tiene contenido disponible.</p>
           </div>
-          <div class="card-body p-3">
-            <ul class="list-group list-group-flush small">
-              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                <span class="text-muted">ID Sistema</span>
-                <code class="text-dark">{{ post.id.substring(0, 8) }}...</code>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                <span class="text-muted">Visibilidad</span>
-                <span class="badge rounded-pill" :class="getVisibilityBadgeClass(post.visibility)">{{ post.visibility }}</span>
-              </li>
-              <li class="list-group-item px-0">
-                <span class="text-muted d-block mb-1">Palabras Clave (SEO)</span>
-                <p class="mb-0 fw-semibold">{{ post.keywords || 'Ninguna' }}</p>
-              </li>
-              <li class="list-group-item px-0">
-                <span class="text-muted d-block mb-1">Fecha de Creación</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-calendar-event me-2"></i>
-                  <span>{{ formatDate(post.created_at) }}</span>
-                </div>
-              </li>
-              <li class="list-group-item px-0">
-                <span class="text-muted d-block mb-1">Última Modificación</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-clock-history me-2"></i>
-                  <span>{{ formatDate(post.updated_at) }}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+          <section v-if="galleryImages.length" class="article-gallery" aria-label="Galería de la publicación">
+            <h2>Galería</h2>
+            <div class="gallery-grid">
+              <a
+                v-for="image in galleryImages"
+                :key="image.id"
+                :href="image.url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img :src="image.previewUrl" :alt="image.alt || post.title" loading="lazy">
+              </a>
+            </div>
+          </section>
+        </article>
+
+        <aside class="article-sidebar">
+          <section class="side-panel">
+            <h2>Detalles</h2>
+            <dl>
+              <div>
+                <dt>Publicado</dt>
+                <dd>{{ formatDate(post.published_at || post.created_at) }}</dd>
+              </div>
+              <div>
+                <dt>Lectura</dt>
+                <dd>{{ getReadingTime(post) }}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="side-panel">
+            <h2>Vista previa</h2>
+            <dl>
+              <div>
+                <dt>Estado</dt>
+                <dd>
+                  <span class="preview-status" :class="getVisibilityClass(post.visibility)">
+                    {{ post.visibility || 'Sin estado' }}
+                  </span>
+                </dd>
+              </div>
+              <div v-if="post.type_post">
+                <dt>Tipo</dt>
+                <dd>{{ post.type_post }}</dd>
+              </div>
+              <div>
+                <dt>Actualizado</dt>
+                <dd>{{ formatDate(post.updated_at || post.created_at) }}</dd>
+              </div>
+              <div v-if="post.keywords">
+                <dt>SEO</dt>
+                <dd>{{ post.keywords }}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section v-if="tags.length" class="side-panel">
+            <h2>Temas</h2>
+            <div class="tag-list">
+              <span v-for="tag in tags" :key="tag">#{{ tag }}</span>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </template>
+  </main>
 </template>
 
 <style scoped>
-.italic-excerpt {
-  border-left: 4px solid #dee2e6;
-  font-style: italic;
+.article-read {
+  min-height: 100vh;
+  background: #f7f7f7;
+  color: #111111;
 }
 
-.post-content :deep(p) {
-  margin-bottom: 1.25rem;
+.read-shell {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 3vw, 2rem);
 }
 
-.post-content :deep(h1), 
-.post-content :deep(h2), 
-.post-content :deep(h3), 
-.post-content :deep(h4), 
-.post-content :deep(h5), 
-.post-content :deep(h6) {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+.read-state {
+  display: flex;
+  min-height: 60vh;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #625d55;
+  text-align: center;
+}
+
+.read-state-error {
+  flex-direction: column;
+  color: #111111;
+}
+
+.state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.read-button,
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 0.35rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: #111827;
+  text-decoration: none;
 }
 
-.post-content :deep(ul), 
-.post-content :deep(ol) {
+.read-button {
+  min-height: 2.5rem;
+  border: 1px solid #111111;
+  background: #111111;
+  color: #ffffff;
+  padding: 0.55rem 0.9rem;
+}
+
+.read-button-light {
+  background: #ffffff;
+  color: #111111;
+}
+
+.article-header {
+  border-bottom: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.article-header .read-shell {
+  padding-top: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.back-link {
+  color: #5f5f5f;
   margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
 }
 
-.post-content :deep(img) {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5em;
-  margin: 1.5rem 0;
+.back-link:hover {
+  color: #111111;
 }
 
-.post-content {
-  line-height: 1.8;
-  font-size: 1.1rem;
-  color: #374151;
+.article-header h1 {
+  max-width: 820px;
+  margin: 0 0 0.9rem;
+  color: #111111;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(1.95rem, 4.8vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.05;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-  content: "•";
-  color: #dee2e6;
+.article-subtitle {
+  max-width: 780px;
+  margin: 0;
+  color: #4f4f4f;
+  font-size: clamp(1rem, 1.7vw, 1.22rem);
+  line-height: 1.55;
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 0.4em 0.8em;
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  margin-top: 1.25rem;
+  color: #737373;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.article-meta span + span::before {
+  content: '•';
+  margin-right: 0.8rem;
+  color: #b3b3b3;
+}
+
+.preview-status {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.preview-status-public {
+  border-color: #b7dfc2;
+  background: #effaf1;
+  color: #216e39;
+}
+
+.preview-status-private {
+  border-color: #f0d69a;
+  background: #fff8e6;
+  color: #8a5a00;
+}
+
+.preview-status-hidden {
+  border-color: #d1d5db;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  padding-top: 1.5rem;
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.article-content {
+  min-width: 0;
+}
+
+.hero-media {
+  margin: 0 0 1.5rem;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.hero-media img,
+.hero-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.hero-media img {
+  display: block;
+  object-fit: cover;
+}
+
+.hero-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(17, 17, 17, 0.08), transparent 36%),
+    repeating-linear-gradient(0deg, #ededed, #ededed 1px, #fafafa 1px, #fafafa 9px);
+  color: #111111;
+  font-size: 3rem;
+}
+
+.hero-media figcaption {
+  padding: 0.65rem 0.85rem;
+  color: #737373;
+  font-size: 0.78rem;
+}
+
+.article-summary {
+  margin: 0 0 1.5rem;
+  padding: 1rem 0 1rem 1.25rem;
+  border-left: 4px solid #111111;
+  color: #333333;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1.45;
+}
+
+.article-body {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.5rem;
+}
+
+.article-body p {
+  margin: 0 0 1.25rem;
+  color: #303030;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.article-gallery {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.article-gallery h2,
+.side-panel h2 {
+  margin: 0 0 0.8rem;
+  color: #111111;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.gallery-grid a {
+  display: block;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.gallery-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.article-sidebar {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  display: grid;
+  gap: 1rem;
+}
+
+.side-panel {
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.side-panel dl {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.side-panel dt {
+  color: #737373;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.side-panel dd {
+  margin: 0.15rem 0 0;
+  color: #111111;
+  font-size: 0.9rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tag-list span {
+  border: 1px solid #d4d4d4;
+  border-radius: 999px;
+  color: #303030;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.35rem 0.65rem;
+}
+
+@media (max-width: 899.98px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .article-sidebar {
+    position: static;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .article-sidebar,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

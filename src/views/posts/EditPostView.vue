@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onBeforeUnmount, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
@@ -10,32 +10,36 @@ const route = useRoute()
 const toast = useToast()
 const loading = ref(true)
 const updateLoading = ref(false)
-const user = ref(null)
 const feedback = ref({ type: '', message: '' })
+const loadingError = ref('')
+const formSubmitted = ref(false)
+const saveRedirectTimer = ref(null)
 const SAVE_TIMEOUT_MS = 15000
+const PUBLIC_VISIBILITY = 'Público'
 
-const form = ref({
-  title: '',
-  subtitle: '',
-  slug: '',
-  type_post: 'noticia',
-  excerpt: '',
-  content: '',
-  tags: '',
-  keywords: '',
-  visibility: 'Oculto',
-})
+function createInitialForm() {
+  return {
+    title: '',
+    subtitle: '',
+    slug: '',
+    type_post: 'noticia',
+    excerpt: '',
+    tags: '',
+    keywords: '',
+    visibility: 'Oculto',
+    published_at: null,
+  }
+}
 
-const canSubmit = computed(() => Boolean(form.value.title?.trim() && form.value.slug?.trim()))
+const form = ref(createInitialForm())
+
 const titleLength = computed(() => form.value.title?.length || 0)
 const excerptLength = computed(() => form.value.excerpt?.length || 0)
-const contentLength = computed(() => form.value.content?.length || 0)
 const tagCount = computed(() => {
   if (!form.value.tags) return 0
   return form.value.tags.split(',').map(tag => tag.trim()).filter(Boolean).length
 })
 const saveButtonLabel = computed(() => updateLoading.value ? 'Guardando...' : 'Guardar cambios')
-
 onMounted(async () => {
   try {
     const { data: { session }, error } = await withTimeout(
@@ -52,11 +56,10 @@ onMounted(async () => {
       return
     }
 
-    user.value = session.user
     await fetchPost()
   } catch (error) {
     console.error('Error loading edit post view:', error)
-    feedback.value = { type: 'danger', message: getUpdateErrorMessage(error) }
+    loadingError.value = getLoadErrorMessage(error)
     loading.value = false
   }
 })
@@ -64,7 +67,7 @@ onMounted(async () => {
 async function fetchPost() {
   const postId = route.params.id
   if (!postId) {
-    feedback.value = { type: 'danger', message: 'No se encontró el ID de la publicación.' }
+    loadingError.value = 'No se encontró el ID de la publicación.'
     loading.value = false
     return
   }
@@ -76,7 +79,7 @@ async function fetchPost() {
         .from('posts')
         .select('*')
         .eq('id', postId)
-        .single()
+        .maybeSingle()
         .abortSignal(abortController.signal),
       {
         timeout: SAVE_TIMEOUT_MS,
@@ -87,15 +90,26 @@ async function fetchPost() {
 
     if (error) throw error
 
-    if (data) {
-      form.value = {
-        ...data,
-        tags: data.tags ? data.tags.join(', ') : '',
-      }
+    if (!data) {
+      loadingError.value = 'No se encontró la publicación o no tienes permiso para editarla.'
+      return
+    }
+
+    form.value = {
+      ...createInitialForm(),
+      title: data.title || '',
+      subtitle: data.subtitle || '',
+      slug: data.slug || '',
+      type_post: data.type_post || 'noticia',
+      excerpt: data.excerpt || '',
+      tags: normalizeTags(data.tags).join(', '),
+      keywords: data.keywords || '',
+      visibility: data.visibility || 'Oculto',
+      published_at: data.published_at || null,
     }
   } catch (error) {
     console.error('Error fetching post:', error)
-    feedback.value = { type: 'danger', message: 'No se pudo cargar la publicación.' }
+    loadingError.value = getLoadErrorMessage(error)
   } finally {
     loading.value = false
   }
@@ -103,6 +117,8 @@ async function fetchPost() {
 
 async function handleUpdatePost() {
   if (updateLoading.value) return
+
+  formSubmitted.value = true
 
   if (!form.value.title?.trim() || !form.value.slug?.trim()) {
     feedback.value = { type: 'danger', message: 'El título y el slug son obligatorios.' }
@@ -127,26 +143,22 @@ async function handleUpdatePost() {
       return
     }
 
-    const tagsArray = typeof form.value.tags === 'string'
-      ? form.value.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '')
-      : Array.isArray(form.value.tags) ? form.value.tags : []
+    const tagsArray = normalizeTags(form.value.tags)
 
     const updatePayload = {
       title: form.value.title.trim(),
-      subtitle: form.value.subtitle,
+      subtitle: form.value.subtitle?.trim() || null,
       slug: form.value.slug.trim(),
       type_post: form.value.type_post,
-      excerpt: form.value.excerpt,
-      content: form.value.content,
+      excerpt: form.value.excerpt?.trim() || null,
       tags: tagsArray,
-      keywords: form.value.keywords,
+      keywords: form.value.keywords?.trim() || null,
       visibility: form.value.visibility,
       editor_id: session.user.id,
       updated_at: new Date().toISOString(),
-    }
-
-    if (form.value.visibility === 'Público') {
-      updatePayload.published_at = form.value.published_at || new Date().toISOString()
+      published_at: form.value.visibility === PUBLIC_VISIBILITY
+        ? form.value.published_at || new Date().toISOString()
+        : null,
     }
 
     const abortController = new AbortController()
@@ -170,7 +182,7 @@ async function handleUpdatePost() {
 
     toast.success('Publicación actualizada correctamente.')
 
-    setTimeout(() => {
+    saveRedirectTimer.value = setTimeout(() => {
       router.push('/posts')
     }, 1500)
   } catch (error) {
@@ -182,6 +194,28 @@ async function handleUpdatePost() {
   } finally {
     updateLoading.value = false
   }
+}
+
+function normalizeTags(tagsValue) {
+  const values = Array.isArray(tagsValue)
+    ? tagsValue
+    : String(tagsValue || '').split(',')
+
+  return [...new Set(values.map(tag => String(tag).trim()).filter(Boolean))]
+}
+
+function getLoadErrorMessage(error) {
+  if (isTimeoutError(error)) {
+    return 'La carga tardó demasiado. Revisa tu conexión e inténtalo de nuevo.'
+  }
+
+  return error?.message || 'No se pudo cargar la publicación.'
+}
+
+async function retryFetchPost() {
+  loadingError.value = ''
+  loading.value = true
+  await fetchPost()
 }
 
 function getUpdateErrorMessage(error) {
@@ -215,6 +249,10 @@ function updateSlug() {
     form.value.slug = slugify(form.value.title)
   }
 }
+
+onBeforeUnmount(() => {
+  if (saveRedirectTimer.value) clearTimeout(saveRedirectTimer.value)
+})
 </script>
 
 <template>
@@ -228,7 +266,21 @@ function updateSlug() {
           <p class="text-muted small mt-3 mb-0">Cargando publicación...</p>
         </div>
 
-        <div v-else class="card shadow-sm border-0 edit-post-card">
+        <div v-else-if="loadingError" class="edit-state-card text-center">
+          <i class="bi bi-file-earmark-x" aria-hidden="true"></i>
+          <h1 class="h5 mb-2">No se pudo abrir la publicación</h1>
+          <p class="text-muted mb-4">{{ loadingError }}</p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+            <button type="button" class="btn btn-dark px-4" @click="retryFetchPost">
+              Reintentar
+            </button>
+            <router-link to="/posts" class="btn btn-light border px-4">
+              Volver a publicaciones
+            </router-link>
+          </div>
+        </div>
+
+        <div v-else class="edit-post-card">
           <div class="card-body p-3 p-lg-4">
             <div
               v-if="feedback.message"
@@ -242,19 +294,21 @@ function updateSlug() {
                 aria-hidden="true"
               ></i>
               <div>{{ feedback.message }}</div>
-              <button type="button" class="btn-close" @click="feedback.message = ''"></button>
+              <button
+                type="button"
+                class="btn-close"
+                aria-label="Cerrar mensaje"
+                @click="feedback.message = ''"
+              ></button>
             </div>
 
-            <form @submit.prevent="handleUpdatePost">
+            <form novalidate @submit.prevent="handleUpdatePost">
               <section class="form-section border-bottom pb-4 mb-4">
                 <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-3">
                   <div>
                     <p class="section-kicker mb-1">Contenido principal</p>
                     <h3 class="section-title mb-0">Título y resumen</h3>
                   </div>
-                  <span class="badge rounded-pill text-bg-light border align-self-start">
-                    {{ form.visibility }}
-                  </span>
                 </div>
 
                 <div class="mb-3">
@@ -267,7 +321,7 @@ function updateSlug() {
                     v-model="form.title"
                     type="text"
                     class="form-control form-control-lg"
-                    :class="{ 'is-invalid': feedback.type === 'danger' && !form.title?.trim() }"
+                    :class="{ 'is-invalid': formSubmitted && !form.title?.trim() }"
                     placeholder="Escribe un título claro para la publicación"
                     required
                   >
@@ -317,7 +371,7 @@ function updateSlug() {
                         v-model="form.slug"
                         type="text"
                         class="form-control"
-                        :class="{ 'is-invalid': feedback.type === 'danger' && !form.slug?.trim() }"
+                        :class="{ 'is-invalid': formSubmitted && !form.slug?.trim() }"
                         placeholder="titulo-de-la-noticia"
                         required
                       >
@@ -349,22 +403,6 @@ function updateSlug() {
                     <div class="form-text">Público asigna fecha de publicación al guardar.</div>
                   </div>
                 </div>
-              </section>
-
-              <section class="form-section border-bottom pb-4 mb-4">
-                <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 mb-3">
-                  <div>
-                    <p class="section-kicker mb-1">Cuerpo</p>
-                    <h3 class="section-title mb-0">Contenido completo</h3>
-                  </div>
-                  <span class="form-hint align-self-start">{{ contentLength }} caracteres</span>
-                </div>
-                <textarea
-                  v-model="form.content"
-                  class="form-control content-editor"
-                  placeholder="Desarrolla toda la noticia aquí..."
-                ></textarea>
-                <div class="form-text">Puedes usar saltos de línea para estructurar el texto antes de publicarlo.</div>
               </section>
 
               <section class="form-section mb-4">
@@ -403,18 +441,20 @@ function updateSlug() {
                 </div>
               </section>
 
-              <div class="form-actions d-flex flex-column flex-sm-row gap-2 justify-content-sm-end border-top pt-3">
-                <button
-                  type="submit"
-                  class="btn btn-dark px-4"
-                  :disabled="updateLoading || !canSubmit"
-                >
-                  <span v-if="updateLoading" class="spinner-border spinner-border-sm me-2"></span>
-                  {{ saveButtonLabel }}
-                </button>
-                <router-link to="/posts" class="btn btn-light border px-4">
-                  Cancelar
-                </router-link>
+              <div class="form-actions border-top pt-3">
+                <div class="action-stack">
+                  <button
+                    type="submit"
+                    class="btn btn-dark px-4"
+                    :disabled="updateLoading"
+                  >
+                    <span v-if="updateLoading" class="spinner-border spinner-border-sm me-2"></span>
+                    {{ saveButtonLabel }}
+                  </button>
+                  <router-link to="/posts" class="btn btn-light border px-4">
+                    Cancelar
+                  </router-link>
+                </div>
               </div>
             </form>
           </div>
@@ -425,8 +465,34 @@ function updateSlug() {
 </template>
 
 <style scoped>
+.edit-post-view {
+  min-height: calc(100vh - 4rem);
+}
+
 .edit-post-card {
   border-radius: 0.5em;
+}
+
+.edit-state-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 0.5rem 1.5rem rgba(17, 24, 39, 0.06);
+  padding: clamp(2rem, 6vw, 4rem) 1.25rem;
+}
+
+.edit-state-card > i {
+  display: block;
+  margin-bottom: 1rem;
+  color: #9ca3af;
+  font-size: 2.5rem;
+}
+
+.edit-post-card > .card-body {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 0.5rem 1.5rem rgba(17, 24, 39, 0.06);
 }
 
 .section-kicker {
@@ -446,11 +512,6 @@ function updateSlug() {
   color: #6c757d;
   flex-shrink: 0;
   font-size: 0.8rem;
-}
-
-.content-editor {
-  min-height: 360px;
-  resize: vertical;
 }
 
 .form-control,
@@ -481,6 +542,7 @@ function updateSlug() {
 }
 
 .form-actions .btn {
+  background: #ffffff;
   align-items: center;
   display: inline-flex;
   justify-content: center;
@@ -490,12 +552,37 @@ function updateSlug() {
   padding-top: 0.625rem;
 }
 
+.form-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin-inline: -0.25rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 -0.5rem 1rem rgba(255, 255, 255, 0.9);
+}
+
+.action-stack {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  width: min(100%, 22rem);
+  margin-left: auto;
+}
+
+.action-stack .btn {
+  flex: 1 1 0;
+}
+
+.form-actions .btn-dark {
+  background: #111827;
+}
+
 .form-actions .spinner-border {
   flex-shrink: 0;
 }
 
 @media (max-width: 575.98px) {
-  .form-actions .btn {
+  .action-stack {
     width: 100%;
   }
 }

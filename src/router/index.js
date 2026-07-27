@@ -133,6 +133,12 @@ const routes = [
         meta: { title: 'Editar post', roles: ['admin', 'editor'] }
       },
       {
+        path: 'content/:id',
+        name: 'edit-post-content',
+        component: () => import('../views/posts/EditPostContent.vue'),
+        meta: { title: 'Editar contenido', roles: ['admin', 'editor'] }
+      },
+      {
         path: 'preview/:id',
         name: 'preview-post',
         component: PostPreviewView,

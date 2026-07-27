@@ -25,6 +25,11 @@ const menuItems = computed(() => [
     icon: 'bi bi-pencil',
   },
   {
+    label: 'Contenido',
+    to: `/posts/content/${props.postId}`,
+    icon: 'bi bi-file-richtext',
+  },
+  {
     label: 'Imágenes',
     to: `/posts/images/${props.postId}`,
     icon: 'bi bi-images',

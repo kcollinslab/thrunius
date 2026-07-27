@@ -8,7 +8,7 @@ const route = useRoute()
 const postTitle = ref('')
 
 const showAdminMenu = computed(() => (
-  Boolean(route.params.id) && ['edit-post', 'preview-post', 'images-post'].includes(route.name)
+  Boolean(route.params.id) && ['edit-post', 'edit-post-content', 'preview-post', 'images-post'].includes(route.name)
 ))
 
 const adminHeaderTitle = computed(() => postTitle.value.trim() || '(Sin nombre)')

@@ -17,16 +17,6 @@ const heroImage = computed(() => images.value[0] || null)
 const galleryImages = computed(() => images.value.slice(1))
 const tags = computed(() => normalizeTags(article.value?.tags))
 
-const contentParagraphs = computed(() => {
-  const content = stripHtml(article.value?.content || '').trim()
-  if (!content) return []
-
-  return content
-    .split(/\n{2,}/)
-    .map((paragraph) => paragraph.replace(/\s*\n\s*/g, ' ').trim())
-    .filter(Boolean)
-})
-
 async function fetchArticle() {
   loading.value = true
   loadError.value = ''
@@ -228,10 +218,7 @@ onMounted(fetchArticle)
             {{ getSummary(article) }}
           </p>
 
-          <div v-if="contentParagraphs.length" class="article-body">
-            <p v-for="paragraph in contentParagraphs" :key="paragraph">
-              {{ paragraph }}
-            </p>
+          <div v-if="article.content" class="article-body" v-html="article.content">
           </div>
 
           <div v-else class="article-body">
