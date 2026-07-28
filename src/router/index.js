@@ -90,7 +90,7 @@ const routes = [
     path: '/files/edit/:id',
     name: 'edit-file',
     component: FilesEditView,
-    meta: { title: 'Editar archivo', requiresAuth: true }
+    meta: { title: 'Editar archivo', roles: ['admin', 'editor'] }
   },
   {
     path: '/games/memoria-colores',
