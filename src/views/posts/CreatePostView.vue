@@ -3,6 +3,13 @@ import { computed, ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
+import {
+  POST_TYPES,
+  POST_TYPE_KEYS,
+  POST_VISIBILITY,
+  POST_VISIBILITY_KEYS,
+  getPostVisibilityLabel,
+} from '../../constants/catalogs'
 
 const router = useRouter()
 const toast = useToast()
@@ -14,12 +21,12 @@ const form = ref({
   title: '',
   subtitle: '',
   slug: '',
-  type_post: 'noticia',
+  type_post: POST_TYPE_KEYS.NEWS,
   excerpt: '',
   content: '',
   tags: '',
   keywords: '',
-  visibility: 'Oculto',
+  visibility: POST_VISIBILITY_KEYS.HIDDEN,
 })
 
 const canSubmit = computed(() => Boolean(form.value.title?.trim() && form.value.slug?.trim()))
@@ -83,7 +90,7 @@ async function handleCreatePost() {
         visibility: form.value.visibility,
         creator_id: user.value.id,
         editor_id: user.value.id,
-        published_at: form.value.visibility === 'Público' ? new Date().toISOString() : null,
+        published_at: form.value.visibility === POST_VISIBILITY_KEYS.PUBLIC ? new Date().toISOString() : null,
       })
 
     if (error) throw error
@@ -168,7 +175,7 @@ function updateSlug() {
                     <h3 class="section-title mb-0">Título y resumen</h3>
                   </div>
                   <span class="badge rounded-pill text-bg-light border align-self-start">
-                    {{ form.visibility }}
+                    {{ getPostVisibilityLabel(form.visibility) }}
                   </span>
                 </div>
 
@@ -247,19 +254,26 @@ function updateSlug() {
                   <div class="col-12 col-sm-6 col-lg-3">
                     <label class="form-label fw-semibold" for="post-type">Tipo</label>
                     <select id="post-type" v-model="form.type_post" class="form-select">
-                      <option value="noticia">Noticia</option>
-                      <option value="aviso">Aviso</option>
-                      <option value="blog">Blog</option>
-                      <option value="evento">Evento</option>
+                      <option
+                        v-for="option in POST_TYPES"
+                        :key="option.key"
+                        :value="option.key"
+                      >
+                        {{ option.label }}
+                      </option>
                     </select>
                   </div>
 
                   <div class="col-12 col-sm-6 col-lg-3">
                     <label class="form-label fw-semibold" for="post-visibility">Visibilidad</label>
                     <select id="post-visibility" v-model="form.visibility" class="form-select">
-                      <option value="Oculto">Oculto</option>
-                      <option value="Privado">Privado</option>
-                      <option value="Público">Público</option>
+                      <option
+                        v-for="option in POST_VISIBILITY"
+                        :key="option.key"
+                        :value="option.key"
+                      >
+                        {{ option.label }}
+                      </option>
                     </select>
                     <div class="form-text">Público asigna fecha de publicación al guardar.</div>
                   </div>

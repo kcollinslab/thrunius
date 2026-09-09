@@ -2,6 +2,10 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
+import {
+  POST_NEWS_TYPE_VALUES,
+  POST_PUBLIC_VISIBILITY_VALUES,
+} from '../../constants/catalogs'
 
 const route = useRoute()
 
@@ -9,8 +13,6 @@ const article = ref(null)
 const images = ref([])
 const loading = ref(true)
 const loadError = ref('')
-
-const PUBLIC_VISIBILITY = 'Público'
 
 const slug = computed(() => String(route.params.slug || '').trim())
 const heroImage = computed(() => images.value[0] || null)
@@ -54,8 +56,8 @@ async function fetchArticle() {
         updated_at
       `)
       .eq('slug', slug.value)
-      .eq('type_post', 'noticia')
-      .eq('visibility', PUBLIC_VISIBILITY)
+      .in('type_post', POST_NEWS_TYPE_VALUES)
+      .in('visibility', POST_PUBLIC_VISIBILITY_VALUES)
       .maybeSingle()
 
     if (error) throw error

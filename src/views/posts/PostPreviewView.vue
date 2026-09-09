@@ -2,6 +2,12 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
+import {
+  POST_VISIBILITY_KEYS,
+  getPostTypeLabel,
+  getPostVisibilityLabel,
+  normalizePostVisibility,
+} from '../../constants/catalogs'
 
 const route = useRoute()
 
@@ -158,10 +164,12 @@ function formatDate(value) {
 }
 
 function getVisibilityClass(visibility) {
+  const value = normalizePostVisibility(visibility)
+
   return {
-    'preview-status-public': visibility === 'Público',
-    'preview-status-private': visibility === 'Privado',
-    'preview-status-hidden': visibility === 'Oculto',
+    'preview-status-public': value === POST_VISIBILITY_KEYS.PUBLIC,
+    'preview-status-private': value === POST_VISIBILITY_KEYS.PRIVATE,
+    'preview-status-hidden': value === POST_VISIBILITY_KEYS.HIDDEN,
   }
 }
 
@@ -266,13 +274,13 @@ onMounted(fetchPost)
                 <dt>Estado</dt>
                 <dd>
                   <span class="preview-status" :class="getVisibilityClass(post.visibility)">
-                    {{ post.visibility || 'Sin estado' }}
+                    {{ getPostVisibilityLabel(post.visibility) }}
                   </span>
                 </dd>
               </div>
               <div v-if="post.type_post">
                 <dt>Tipo</dt>
-                <dd>{{ post.type_post }}</dd>
+                <dd>{{ getPostTypeLabel(post.type_post) }}</dd>
               </div>
               <div>
                 <dt>Actualizado</dt>

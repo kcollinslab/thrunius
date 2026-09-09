@@ -4,6 +4,12 @@ import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
 import ModalDelete from '../../components/ModalDelete.vue'
 import InputSearchControl from '../../components/tools/InputSearchControl.vue'
+import {
+  POST_VISIBILITY_KEYS,
+  getPostTypeLabel,
+  getPostVisibilityLabel,
+  normalizePostVisibility,
+} from '../../constants/catalogs'
 
 const toast = useToast()
 
@@ -32,7 +38,7 @@ const filteredPosts = computed(() => {
   const query = normalizeText(searchQuery.value.trim())
   if (!query) return posts.value
 
-  return posts.value.filter((post) => [post.title, post.subtitle, post.excerpt, post.type_post]
+  return posts.value.filter((post) => [post.title, post.subtitle, post.excerpt, getPostTypeLabel(post.type_post)]
     .some((value) => normalizeText(value).includes(query)))
 })
 
@@ -185,9 +191,9 @@ function formatDate(value) {
 }
 
 function visibilityClass(visibility) {
-  const value = normalizeText(visibility)
-  if (value === 'publico') return 'status-public'
-  if (value === 'privado') return 'status-private'
+  const value = normalizePostVisibility(visibility)
+  if (value === POST_VISIBILITY_KEYS.PUBLIC) return 'status-public'
+  if (value === POST_VISIBILITY_KEYS.PRIVATE) return 'status-private'
   return 'status-hidden'
 }
 
@@ -338,11 +344,11 @@ onMounted(() => {
               </td>
               <td>
                 <span class="status-badge" :class="visibilityClass(post.visibility)">
-                  {{ post.visibility || 'Sin estado' }}
+                  {{ getPostVisibilityLabel(post.visibility) }}
                 </span>
               </td>
               <td class="d-none d-lg-table-cell">
-                <span class="post-type">{{ post.type_post || '—' }}</span>
+                <span class="post-type">{{ getPostTypeLabel(post.type_post) }}</span>
               </td>
               <td class="date-cell d-none d-md-table-cell">{{ formatDate(post.created_at) }}</td>
               <td class="actions-cell">

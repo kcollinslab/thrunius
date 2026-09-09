@@ -4,6 +4,14 @@ import { useRouter, useRoute } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
 import { withTimeout, isTimeoutError } from '../../lib/asyncTimeout'
+import {
+  POST_TYPES,
+  POST_TYPE_KEYS,
+  POST_VISIBILITY,
+  POST_VISIBILITY_KEYS,
+  normalizePostType,
+  normalizePostVisibility,
+} from '../../constants/catalogs'
 
 const router = useRouter()
 const route = useRoute()
@@ -15,18 +23,17 @@ const loadingError = ref('')
 const formSubmitted = ref(false)
 const saveRedirectTimer = ref(null)
 const SAVE_TIMEOUT_MS = 15000
-const PUBLIC_VISIBILITY = 'Público'
 
 function createInitialForm() {
   return {
     title: '',
     subtitle: '',
     slug: '',
-    type_post: 'noticia',
+    type_post: POST_TYPE_KEYS.NEWS,
     excerpt: '',
     tags: '',
     keywords: '',
-    visibility: 'Oculto',
+    visibility: POST_VISIBILITY_KEYS.HIDDEN,
     published_at: null,
   }
 }
@@ -100,11 +107,11 @@ async function fetchPost() {
       title: data.title || '',
       subtitle: data.subtitle || '',
       slug: data.slug || '',
-      type_post: data.type_post || 'noticia',
+      type_post: normalizePostType(data.type_post),
       excerpt: data.excerpt || '',
       tags: normalizeTags(data.tags).join(', '),
       keywords: data.keywords || '',
-      visibility: data.visibility || 'Oculto',
+      visibility: normalizePostVisibility(data.visibility),
       published_at: data.published_at || null,
     }
   } catch (error) {
@@ -156,7 +163,7 @@ async function handleUpdatePost() {
       visibility: form.value.visibility,
       editor_id: session.user.id,
       updated_at: new Date().toISOString(),
-      published_at: form.value.visibility === PUBLIC_VISIBILITY
+      published_at: form.value.visibility === POST_VISIBILITY_KEYS.PUBLIC
         ? form.value.published_at || new Date().toISOString()
         : null,
     }
@@ -386,19 +393,26 @@ onBeforeUnmount(() => {
                   <div class="col-12 col-sm-6 col-lg-3">
                     <label class="form-label fw-semibold" for="post-type">Tipo</label>
                     <select id="post-type" v-model="form.type_post" class="form-select">
-                      <option value="noticia">Noticia</option>
-                      <option value="aviso">Aviso</option>
-                      <option value="blog">Blog</option>
-                      <option value="evento">Evento</option>
+                      <option
+                        v-for="option in POST_TYPES"
+                        :key="option.key"
+                        :value="option.key"
+                      >
+                        {{ option.label }}
+                      </option>
                     </select>
                   </div>
 
                   <div class="col-12 col-sm-6 col-lg-3">
                     <label class="form-label fw-semibold" for="post-visibility">Visibilidad</label>
                     <select id="post-visibility" v-model="form.visibility" class="form-select">
-                      <option value="Oculto">Oculto</option>
-                      <option value="Privado">Privado</option>
-                      <option value="Público">Público</option>
+                      <option
+                        v-for="option in POST_VISIBILITY"
+                        :key="option.key"
+                        :value="option.key"
+                      >
+                        {{ option.label }}
+                      </option>
                     </select>
                     <div class="form-text">Público asigna fecha de publicación al guardar.</div>
                   </div>

@@ -1,6 +1,10 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { hasSupabaseConfig, supabase } from '../../lib/supabase'
+import {
+  POST_NEWS_TYPE_VALUES,
+  POST_PUBLIC_VISIBILITY_VALUES,
+} from '../../constants/catalogs'
 
 const articles = ref([])
 const loading = ref(true)
@@ -8,7 +12,6 @@ const loadError = ref('')
 const currentTopic = ref('todos')
 
 const ARTICLE_LIMIT = 24
-const PUBLIC_VISIBILITY = 'Público'
 
 const featuredArticle = computed(() => articles.value[0] || null)
 const secondaryArticles = computed(() => articles.value.slice(1, 4))
@@ -58,8 +61,8 @@ async function fetchArticles() {
         published_at,
         created_at
       `)
-      .eq('type_post', 'noticia')
-      .eq('visibility', PUBLIC_VISIBILITY)
+      .in('type_post', POST_NEWS_TYPE_VALUES)
+      .in('visibility', POST_PUBLIC_VISIBILITY_VALUES)
       .order('published_at', { ascending: false, nullsFirst: false })
       .order('created_at', { ascending: false })
       .limit(ARTICLE_LIMIT)
