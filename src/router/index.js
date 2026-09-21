@@ -20,6 +20,7 @@ import ProfilesView from '../views/profiles/ProfilesView.vue'
 import ProfilesListView from '../views/profiles/ProfilesListView.vue'
 import EditProfileView from '../views/profiles/EditProfileView.vue'
 import ChangePassword from '../views/profiles/ChangePassword.vue'
+import ResponderPregunta from '../views/cloudbook/responder/ResponderPregunta.vue'
 import { supabase } from '../lib/supabase'
 import { withTimeout, isTimeoutError } from '../lib/asyncTimeout'
 import { hasRecentPasswordRecoveryRequest } from '../lib/passwordRecoveryFlow'
@@ -73,6 +74,12 @@ const routes = [
     name: 'change-password',
     component: ChangePassword,
     meta: { title: 'Cambiar contraseña', requiresAuth: true }
+  },
+  {
+    path: '/cloudbook/responder',
+    name: 'cloudbook-responder',
+    component: ResponderPregunta,
+    meta: { title: 'Responder preguntas', requiresAuth: true }
   },
   {
     path: '/files',

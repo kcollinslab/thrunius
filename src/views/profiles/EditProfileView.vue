@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
+import { getAuthenticatedAdmin } from '../../lib/profileAccess'
 
 const router = useRouter()
 const route = useRoute()
@@ -62,23 +63,6 @@ function validateForm() {
   }
 
   return ''
-}
-
-async function getAuthenticatedAdmin() {
-  const { data: userData, error: userError } = await supabase.auth.getUser()
-  if (userError || !userData.user) throw new Error('AUTH_REQUIRED')
-
-  const { data: adminProfile, error: roleError } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', userData.user.id)
-    .single()
-
-  if (roleError || String(adminProfile?.role || '').trim().toLowerCase() !== 'admin') {
-    throw new Error('ADMIN_REQUIRED')
-  }
-
-  return userData.user
 }
 
 async function fetchProfile() {
@@ -142,23 +126,15 @@ async function handleUpdateProfile() {
   try {
     const user = await getAuthenticatedAdmin()
     const values = normalizeForm(form.value)
-    const updatePayload = {
-      full_name: values.full_name,
-      about: values.about || null,
-      birth_date: values.birth_date || null,
-      gender: values.gender || null,
-      updated_at: new Date().toISOString(),
-    }
-
-    // Un administrador no puede modificar su propio rol desde esta pantalla.
-    if (user.id !== profileId.value) updatePayload.role = values.role
-
-    const { data, error } = await supabase
-      .from('profiles')
-      .update(updatePayload)
-      .eq('id', profileId.value)
-      .select('id')
-      .maybeSingle()
+    const role = user.id === profileId.value ? initialForm.value.role : values.role
+    const { data, error } = await supabase.rpc('admin_actualizar_perfil', {
+      p_perfil_id: profileId.value,
+      p_nombre_completo: values.full_name,
+      p_acerca_de: values.about || null,
+      p_fecha_nacimiento: values.birth_date || null,
+      p_genero: values.gender || null,
+      p_rol: role,
+    })
 
     if (error) throw error
     if (!data) throw new Error('PROFILE_NOT_FOUND')
@@ -169,13 +145,15 @@ async function handleUpdateProfile() {
     await router.push({ name: 'profiles' })
   } catch (error) {
     console.error('Error al actualizar el perfil:', error)
-    const message = error.message === 'ADMIN_REQUIRED'
+    const message = error.message?.includes('ADMIN_REQUIRED')
       ? 'Tu sesión ya no tiene permisos para editar perfiles.'
-      : error.message === 'AUTH_REQUIRED'
+      : error.message?.includes('AUTH_REQUIRED')
         ? 'Tu sesión expiró. Inicia sesión nuevamente.'
-        : error.message === 'PROFILE_NOT_FOUND'
-          ? 'El perfil ya no existe o no tienes permiso para modificarlo.'
-          : 'No se pudo actualizar el perfil. Inténtalo de nuevo.'
+        : error.message?.includes('SELF_ROLE_CHANGE_FORBIDDEN')
+          ? 'Por seguridad, no puedes modificar tu propio rol.'
+          : error.message?.includes('PROFILE_NOT_FOUND')
+            ? 'El perfil ya no existe o no tienes permiso para modificarlo.'
+            : 'No se pudo actualizar el perfil. Inténtalo de nuevo.'
     toast.error(message)
   } finally {
     saveLoading.value = false

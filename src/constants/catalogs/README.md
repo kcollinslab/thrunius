@@ -151,3 +151,65 @@ Y exportarlos desde:
 ```txt
 src/constants/catalogs/index.js
 ```
+
+## Cloudbook
+
+El modulo usa `src/constants/catalogs/cloudbook.js`, exportado desde `index.js`.
+Incluye areas, tipos y estados de preguntas, procedencias, tipos de recurso y
+dificultades, con `*_KEYS`, opciones, `*_LABELS`, `normalize*` y `get*Label`.
+
+Los normalizadores de Cloudbook devuelven `''` para valores desconocidos, salvo
+que se indique un fallback. No se agregan listas temporales `*_VALUES` porque
+no existen datos antiguos que requieran compatibilidad.
+
+### Campos numericos y catalogos relacionales
+
+- `cbk_preguntas.dificultad` guarda `1`, `2` o `3`, no el slug del catalogo.
+  `CBK_DIFICULTADES` incluye `valor` para conservar ese contrato. Usar
+  `getCbkDificultadValor` al guardar y `getCbkDificultadLabel` al mostrar.
+- `cbk_preguntas.area_id` guarda un ID de catalogo relacional. `CBK_AREAS`
+  define keys y labels de respaldo pero no asigna IDs. `cbk_areas` ya existe:
+  obtener de Supabase `id`, `clave`, `nombre`, `descripcion`, `orden` y `activa`,
+  vinculando `clave` con la key local. Usar los nombres y descripciones de la
+  tabla como fuente principal; no asumir IDs fijos ni sobrescribirlos desde el
+  catalogo local. `area_id` tiene una FK con `ON DELETE RESTRICT`.
+  Para nuevos entrenamientos filtrar `activa=true`; las areas inactivas se
+  conservan para consultar preguntas e historial. Solo administradores pueden
+  crear o modificar areas; las claves son inmutables y no hay borrado desde el
+  cliente. Agregar nuevas claves primero al catalogo y luego a la tabla.
+- `tipo`, `estado`, `procedencia` y `tipo_recurso` guardan sus keys directamente.
+  Para un recurso ausente, guardar `null`, no la etiqueta "Sin recurso".
+- Que `publicada` aparezca en el catalogo no habilita la publicacion: sigue
+  sujeta a las validaciones del servidor.
+
+```js
+import {
+  CBK_PREGUNTA_ESTADO_KEYS,
+  getCbkDificultadValor,
+  getCbkDificultadLabel,
+} from '@/constants/catalogs'
+
+const estado = CBK_PREGUNTA_ESTADO_KEYS.BORRADOR
+const dificultad = getCbkDificultadValor('facil') // 1
+const etiqueta = getCbkDificultadLabel(1) // Fácil
+```
+
+### Opciones de preguntas
+
+`cbk_pregunta_opciones` no requiere un catalogo adicional: `texto` es contenido,
+`orden` es un entero positivo y `es_correcta` es booleano, no una key ni un label.
+La edicion depende del estado de la pregunta: en Vue usar
+`CBK_PREGUNTA_ESTADO_KEYS.BORRADOR`, nunca el label "Borrador". El servidor
+impone la misma restriccion y solo admite `seleccion_unica`, consistente con
+`CBK_PREGUNTA_TIPO_KEYS.SELECCION_UNICA`.
+
+Las respuestas de practica deberan guardar el ID de la opcion, no su orden ni
+una letra visible. No enviar `es_correcta` al cliente de practica. La tabla
+permite como maximo una correcta; exigir al menos dos opciones y exactamente
+una correcta sera parte del flujo de publicacion, aun bloqueado.
+
+Ejecutar las pruebas sin dependencias adicionales:
+
+```bash
+node --test tests/catalogs/cloudbook.test.js
+```

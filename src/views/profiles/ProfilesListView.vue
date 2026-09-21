@@ -1,13 +1,16 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 import { supabase } from '../../lib/supabase'
-import ModalDelete from '../../components/ModalDelete.vue'
+import { getAuthenticatedAdmin } from '../../lib/profileAccess'
+
+const router = useRouter()
+const toast = useToast()
 
 const profiles = ref([])
 const loading = ref(true)
-const feedback = ref({ type: '', message: '' })
-const selectedIds = ref([])
-const showDeleteModal = ref(false)
+const loadError = ref('')
 const currentUserId = ref(null)
 
 const ROLE_LABELS = {
@@ -18,69 +21,40 @@ const ROLE_LABELS = {
 
 async function fetchProfiles() {
   loading.value = true
-  selectedIds.value = []
+  loadError.value = ''
 
   try {
+    const user = await getAuthenticatedAdmin()
+    currentUserId.value = user.id
+
     const { data, error } = await supabase
       .from('profiles')
-      .select('*')
+      .select('id, full_name, role, gender, birth_date, updated_at')
       .order('updated_at', { ascending: false })
 
     if (error) throw error
     profiles.value = data
   } catch (err) {
     console.error('Error fetching profiles:', err)
-    feedback.value = { type: 'danger', message: 'No se pudieron cargar los usuarios. Revisa tu conexión.' }
+    profiles.value = []
+
+    if (err.message === 'AUTH_REQUIRED') {
+      await router.replace({ name: 'login' })
+      return
+    }
+
+    if (err.message === 'ADMIN_REQUIRED') {
+      toast.error('No tienes permisos para administrar perfiles.')
+      await router.replace({ name: 'profile' })
+      return
+    }
+
+    loadError.value = 'No se pudieron cargar los perfiles. Intenta nuevamente.'
+    toast.error(loadError.value)
   } finally {
     loading.value = false
   }
 }
-
-function openDeleteModal() {
-  if (selectedIds.value.length > 0) {
-    showDeleteModal.value = true
-  }
-}
-
-async function confirmDeleteSelected() {
-  const countToDelete = selectedIds.value.length
-  showDeleteModal.value = false
-  loading.value = true
-  feedback.value = { type: '', message: '' }
-
-  try {
-    const { error } = await supabase
-      .from('profiles')
-      .delete()
-      .in('id', selectedIds.value)
-
-    if (error) throw error
-
-    feedback.value = {
-      type: 'success',
-      message: `Se han eliminado ${countToDelete} ${countToDelete === 1 ? 'usuario' : 'usuarios'} correctamente.`
-    }
-    await fetchProfiles()
-  } catch (err) {
-    console.error('Error deleting profiles:', err)
-    feedback.value = { type: 'danger', message: 'Ocurrió un error al intentar eliminar los usuarios.' }
-    loading.value = false
-  }
-}
-
-const toggleSelectAll = (event) => {
-  if (event.target.checked) {
-    selectedIds.value = profiles.value
-      .filter(p => p.id !== currentUserId.value)
-      .map(p => p.id)
-  } else {
-    selectedIds.value = []
-  }
-}
-
-const isAllSelected = computed(() =>
-  profiles.value.length > 0 && selectedIds.value.length === profiles.value.length
-)
 
 function getRoleBadge(role) {
   return ROLE_LABELS[role] || { label: role || 'Sin rol', class: 'text-bg-light' }
@@ -91,13 +65,7 @@ function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
-onMounted(async () => {
-  const { data: { session } } = await supabase.auth.getSession()
-  if (session?.user) {
-    currentUserId.value = session.user.id
-  }
-  fetchProfiles()
-})
+onMounted(fetchProfiles)
 </script>
 
 <template>
@@ -107,24 +75,11 @@ onMounted(async () => {
         <h1 class="h2 fw-bold mb-1">Usuarios</h1>
         <p class="text-muted mb-0">Gestiona los perfiles y roles de los usuarios registrados</p>
       </div>
-      <div class="d-flex gap-2">
-        <button
-          v-if="selectedIds.length > 0"
-          @click="openDeleteModal"
-          class="btn btn-outline-danger d-flex align-items-center gap-2"
-        >
-          <i class="bi bi-trash"></i>
-          <span>Eliminar ({{ selectedIds.length }})</span>
-        </button>
-      </div>
     </div>
 
-    <!-- Mensajes de Feedback -->
-    <div v-if="feedback.message" class="alert alert-dismissible fade show d-flex align-items-center" :class="`alert-${feedback.type}`" role="alert">
-      <i v-if="feedback.type === 'danger'" class="bi bi-exclamation-triangle-fill me-2"></i>
-      <i v-else class="bi bi-check-circle-fill me-2"></i>
-      <div>{{ feedback.message }}</div>
-      <button type="button" class="btn-close" @click="feedback.message = ''" aria-label="Cerrar"></button>
+    <div class="alert alert-light border small">
+      Esta pantalla permite editar perfiles y roles. La eliminación de cuentas no está disponible aquí
+      para evitar dejar cuentas activas sin perfil.
     </div>
 
     <!-- Tabla de Perfiles -->
@@ -133,6 +88,11 @@ onMounted(async () => {
         <div class="spinner-border text-dark" role="status">
           <span class="visually-hidden">Cargando...</span>
         </div>
+      </div>
+
+      <div v-else-if="loadError" class="text-center py-5 bg-white" role="alert">
+        <p class="text-danger">{{ loadError }}</p>
+        <button type="button" class="btn btn-outline-dark" @click="fetchProfiles">Reintentar</button>
       </div>
 
       <div v-else-if="profiles.length === 0" class="text-center py-5 bg-white">
@@ -144,15 +104,7 @@ onMounted(async () => {
         <table class="table table-hover align-middle mb-0">
           <thead class="bg-light">
             <tr>
-              <th scope="col" class="ps-4" style="width: 40px;">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  :checked="isAllSelected"
-                  @change="toggleSelectAll"
-                >
-              </th>
-              <th scope="col">Nombre</th>
+              <th scope="col" class="ps-4">Nombre</th>
               <th scope="col">Rol</th>
               <th scope="col">Género</th>
               <th scope="col">Fecha nacimiento</th>
@@ -161,17 +113,8 @@ onMounted(async () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="profile in profiles" :key="profile.id" :class="{'table-active': selectedIds.includes(profile.id)}">
+            <tr v-for="profile in profiles" :key="profile.id">
               <td class="ps-4">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  v-model="selectedIds"
-                  :value="profile.id"
-                  :disabled="profile.id === currentUserId"
-                >
-              </td>
-              <td>
                 <div class="fw-bold text-dark">{{ profile.full_name || '—' }}</div>
                 <small class="text-muted d-block text-truncate" style="max-width: 200px;">{{ profile.id }}</small>
               </td>
@@ -206,14 +149,6 @@ onMounted(async () => {
     </div>
   </div>
 
-  <!-- Modal de Confirmación -->
-  <ModalDelete
-    :show="showDeleteModal"
-    :count="selectedIds.length"
-    title="Eliminar Usuarios"
-    @confirm="confirmDeleteSelected"
-    @close="showDeleteModal = false"
-  />
 </template>
 
 <style scoped>
@@ -234,10 +169,6 @@ onMounted(async () => {
   letter-spacing: 0.05em;
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.form-check-input {
-  cursor: pointer;
 }
 
 .table-hover tbody tr:hover {
