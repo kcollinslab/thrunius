@@ -1,13 +1,22 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { hasSupabaseConfig, supabase } from '../../../lib/supabase'
 import { isTimeoutError, withTimeout } from '../../../lib/asyncTimeout'
+import { CBK_AREAS, getCbkAreaLabel } from '../../../constants/catalogs/cloudbook'
+
+const props = defineProps({
+  area: { type: String, required: true },
+  grado: { type: String, required: true },
+})
 
 const STORAGE_PREFIX = 'cloudbook:responder:progreso:v1:'
 const REQUEST_TIMEOUT_MS = 10000
 const EMPTY_PROGRESS = Object.freeze({ respondidas: 0, correctas: 0 })
+const GRADOS = Array.from({ length: 11 }, (_, indice) => indice + 1)
 
+const router = useRouter()
 const toast = useToast()
 const pregunta = ref(null)
 const opcionSeleccionada = ref('')
@@ -17,6 +26,10 @@ const cargando = ref(true)
 const enviando = ref(false)
 const mensajeError = ref('')
 const storageKey = ref('')
+const usuarioId = ref('')
+
+const areaLabel = computed(() => getCbkAreaLabel(props.area))
+const gradoNumero = computed(() => Number(props.grado))
 
 const puedeEnviar = computed(() => (
   Boolean(opcionSeleccionada.value)
@@ -35,6 +48,15 @@ const dificultad = computed(() => {
 })
 
 onMounted(inicializar)
+
+watch(
+  () => [props.area, props.grado],
+  () => {
+    if (!usuarioId.value) return
+    prepararFiltro()
+    void cargarPregunta()
+  },
+)
 
 async function inicializar() {
   if (!hasSupabaseConfig || !supabase) {
@@ -55,13 +77,25 @@ async function inicializar() {
     if (error) throw error
     if (!data?.user) throw new Error('Debes iniciar sesión para responder preguntas.')
 
-    storageKey.value = `${STORAGE_PREFIX}${data.user.id}`
-    cargarProgreso()
+    usuarioId.value = data.user.id
+    prepararFiltro()
     await cargarPregunta()
   } catch (error) {
     cargando.value = false
     mensajeError.value = obtenerMensajeError(error)
   }
+}
+
+function prepararFiltro() {
+  storageKey.value = `${STORAGE_PREFIX}${usuarioId.value}:${props.area}:${props.grado}`
+  cargarProgreso()
+}
+
+function cambiarFiltro(campo, valor) {
+  const area = campo === 'area' ? valor : props.area
+  const grado = campo === 'grado' ? String(valor) : props.grado
+  if (area === props.area && grado === props.grado) return
+  router.push({ name: 'cloudbook-responder', params: { area, grado } })
 }
 
 function normalizarContador(valor) {
@@ -111,6 +145,8 @@ async function cargarPregunta() {
   try {
     const { data, error } = await withTimeout(
       supabase.rpc('cbk_obtener_pregunta_aleatoria', {
+        p_area_clave: props.area,
+        p_grado: gradoNumero.value,
         p_excluir_id: preguntaAnteriorId,
       }),
       {
@@ -120,7 +156,9 @@ async function cargarPregunta() {
     )
 
     if (error) throw error
-    if (!data) throw new Error('No hay preguntas disponibles para responder.')
+    if (!data) {
+      throw new Error(`No hay preguntas disponibles para ${areaLabel.value}, grado ${gradoNumero.value}.`)
+    }
     if (!Array.isArray(data.opciones) || data.opciones.length < 2) {
       throw new Error('La pregunta recibida no tiene opciones suficientes.')
     }
@@ -148,6 +186,8 @@ async function enviarRespuesta() {
       supabase.rpc('cbk_calificar_respuesta', {
         p_pregunta_id: pregunta.value.id,
         p_opcion_id: opcionSeleccionada.value,
+        p_area_clave: props.area,
+        p_grado: gradoNumero.value,
       }),
       {
         timeout: REQUEST_TIMEOUT_MS,
@@ -219,8 +259,8 @@ function obtenerMensajeError(error) {
     <div class="container-xl">
       <header class="page-header d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-2 gap-lg-3 mb-3 mb-lg-4">
         <div>
-          <span class="eyebrow">Práctica de inglés</span>
-          <h1 class="page-title fw-bold mb-1">Pregunta de inglés</h1>
+          <span class="eyebrow">Práctica por área</span>
+          <h1 class="page-title fw-bold mb-1">Preguntas de {{ areaLabel }} · Grado {{ gradoNumero }}</h1>
           <p class="page-subtitle text-secondary mb-0">Selecciona una opción y envía tu respuesta.</p>
         </div>
 
@@ -235,6 +275,39 @@ function obtenerMensajeError(error) {
           <span class="d-sm-none">Reiniciar</span>
         </button>
       </header>
+
+      <section class="filter-card mb-3 mb-lg-4" aria-label="Elegir área y grado">
+        <div class="row g-3">
+          <div class="col-12 col-sm-7">
+            <label class="form-label" for="responder-area">Área</label>
+            <select
+              id="responder-area"
+              class="form-select"
+              :value="area"
+              :disabled="cargando || enviando"
+              @change="cambiarFiltro('area', $event.target.value)"
+            >
+              <option v-for="opcion in CBK_AREAS" :key="opcion.key" :value="opcion.key">
+                {{ opcion.label }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-sm-5">
+            <label class="form-label" for="responder-grado">Grado</label>
+            <select
+              id="responder-grado"
+              class="form-select"
+              :value="grado"
+              :disabled="cargando || enviando"
+              @change="cambiarFiltro('grado', $event.target.value)"
+            >
+              <option v-for="opcion in GRADOS" :key="opcion" :value="opcion">
+                {{ opcion }}° de primaria
+              </option>
+            </select>
+          </div>
+        </div>
+      </section>
 
       <section class="row g-3 mb-4" aria-label="Progreso guardado en este navegador">
         <div class="col-4">
@@ -398,7 +471,8 @@ function obtenerMensajeError(error) {
 }
 
 .stat-card,
-.question-card {
+.question-card,
+.filter-card {
   border: 1px solid rgba(15, 23, 42, 0.08);
   background: #ffffff;
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
@@ -411,6 +485,18 @@ function obtenerMensajeError(error) {
   justify-content: center;
   padding: 1rem 1.25rem;
   border-radius: 1rem;
+}
+
+.filter-card {
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+}
+
+.filter-card .form-label {
+  margin-bottom: 0.35rem;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .stat-card span {
@@ -546,6 +632,11 @@ function obtenerMensajeError(error) {
     min-height: 82px;
     padding: 0.65rem 0.35rem;
     text-align: center;
+  }
+
+  .filter-card {
+    padding: 0.85rem;
+    border-radius: 0.9rem;
   }
 
   .stat-card span {

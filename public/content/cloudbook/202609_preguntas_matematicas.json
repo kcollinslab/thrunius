@@ -1,0 +1,366 @@
+{
+  "metadatos": {
+    "tabla_destino": "public.cbk_preguntas",
+    "tabla_opciones_destino": "public.cbk_pregunta_opciones",
+    "area_clave": "matematicas",
+    "area_id_verificado": 3,
+    "grado": 2,
+    "edad_referencial": "7-8 años",
+    "pais": "Colombia",
+    "cantidad": 50,
+    "estado": "borrador",
+    "nota": "Banco de problemas sencillos de multiplicación. Cada pregunta tiene cuatro opciones y exactamente una respuesta correcta. Los tags identifican la tabla aplicada."
+  },
+  "preguntas": [
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Hay 2 bolsas con 3 canicas en cada una. ¿Cuántas canicas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "2 × 3 = 6. Dos grupos de tres canicas suman seis.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"6","orden":1,"es_correcta":true},{"texto":"5","orden":2,"es_correcta":false},{"texto":"9","orden":3,"es_correcta":false},{"texto":"3","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En cada una de 4 cajas hay 3 colores. ¿Cuántos colores hay entre todas las cajas?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "4 × 3 = 12. Cuatro grupos de tres colores son doce.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"9","orden":1,"es_correcta":false},{"texto":"12","orden":2,"es_correcta":true},{"texto":"15","orden":3,"es_correcta":false},{"texto":"7","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En el salón hay 3 filas de 5 sillas. ¿Cuántas sillas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "3 × 5 = 15. Tres filas de cinco sillas tienen quince sillas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"12","orden":1,"es_correcta":false},{"texto":"18","orden":2,"es_correcta":false},{"texto":"15","orden":3,"es_correcta":true},{"texto":"8","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "La profesora entrega 3 galletas a cada uno de 6 niños. ¿Cuántas galletas entrega?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "6 × 3 = 18. Seis grupos de tres galletas son dieciocho.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"21","orden":1,"es_correcta":false},{"texto":"15","orden":2,"es_correcta":false},{"texto":"12","orden":3,"es_correcta":false},{"texto":"18","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Hay 7 sobres con 3 semillas en cada uno. ¿Cuántas semillas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "7 × 3 = 21. Siete sobres de tres semillas contienen veintiuna semillas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"21","orden":1,"es_correcta":true},{"texto":"24","orden":2,"es_correcta":false},{"texto":"18","orden":3,"es_correcta":false},{"texto":"10","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Una tienda tiene 8 paquetes con 3 lápices cada uno. ¿Cuántos lápices tiene?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "8 × 3 = 24. Ocho paquetes de tres lápices son veinticuatro lápices.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"20","orden":1,"es_correcta":false},{"texto":"24","orden":2,"es_correcta":true},{"texto":"27","orden":3,"es_correcta":false},{"texto":"11","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Sara hace 9 ramos con 3 flores en cada ramo. ¿Cuántas flores usa?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "9 × 3 = 27. Nueve ramos de tres flores necesitan veintisiete flores.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"30","orden":1,"es_correcta":false},{"texto":"24","orden":2,"es_correcta":false},{"texto":"27","orden":3,"es_correcta":true},{"texto":"18","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Hay 10 bolsas con 3 botones en cada bolsa. ¿Cuántos botones hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "10 × 3 = 30. Diez bolsas de tres botones tienen treinta botones.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"30","orden":1,"es_correcta":true},{"texto":"33","orden":2,"es_correcta":false},{"texto":"27","orden":3,"es_correcta":false},{"texto":"13","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Cada triciclo tiene 3 ruedas. ¿Cuántas ruedas tienen 3 triciclos?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 3 = 9. Tres triciclos tienen nueve ruedas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"6","orden":1,"es_correcta":false},{"texto":"9","orden":2,"es_correcta":true},{"texto":"12","orden":3,"es_correcta":false},{"texto":"3","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Cinco niños reciben 3 canicas cada uno. ¿Cuántas canicas reciben entre todos?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "5 × 3 = 15. Cinco grupos de tres canicas son quince.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"18","orden":1,"es_correcta":false},{"texto":"12","orden":2,"es_correcta":false},{"texto":"8","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Una biblioteca tiene 3 estantes con 4 libros en cada uno. ¿Cuántos libros hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 4 = 12. Tres estantes de cuatro libros tienen doce libros.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"12","orden":1,"es_correcta":true},{"texto":"7","orden":2,"es_correcta":false},{"texto":"9","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Luis lee 6 páginas cada día durante 3 días. ¿Cuántas páginas lee en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "3 × 6 = 18. Leer seis páginas durante tres días da dieciocho páginas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"12","orden":1,"es_correcta":false},{"texto":"18","orden":2,"es_correcta":true},{"texto":"21","orden":3,"es_correcta":false},{"texto":"9","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Se forman 3 equipos de 7 estudiantes. ¿Cuántos estudiantes participan?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "3 × 7 = 21. Tres equipos de siete estudiantes reúnen veintiuno.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"18","orden":1,"es_correcta":false},{"texto":"24","orden":2,"es_correcta":false},{"texto":"21","orden":3,"es_correcta":true},{"texto":"10","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En una panadería hay 3 bandejas con 8 panes en cada una. ¿Cuántos panes hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "3 × 8 = 24. Tres bandejas de ocho panes contienen veinticuatro panes.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"27","orden":1,"es_correcta":false},{"texto":"11","orden":2,"es_correcta":false},{"texto":"20","orden":3,"es_correcta":false},{"texto":"24","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Hay 3 cajas con 9 borradores en cada una. ¿Cuántos borradores hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "3 × 9 = 27. Tres grupos de nueve borradores suman veintisiete.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"27","orden":1,"es_correcta":true},{"texto":"24","orden":2,"es_correcta":false},{"texto":"30","orden":3,"es_correcta":false},{"texto":"12","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En un patio hay 3 filas de 10 sillas. ¿Cuántas sillas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "3 × 10 = 30. Tres filas de diez sillas tienen treinta sillas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"13","orden":1,"es_correcta":false},{"texto":"30","orden":2,"es_correcta":true},{"texto":"27","orden":3,"es_correcta":false},{"texto":"33","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Carolina pone 3 manzanas en cada una de 2 canastas. ¿Cuántas manzanas pone?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "2 × 3 = 6. Dos canastas de tres manzanas son seis manzanas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"9","orden":1,"es_correcta":false},{"texto":"5","orden":2,"es_correcta":false},{"texto":"6","orden":3,"es_correcta":true},{"texto":"3","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Hay 4 floreros con 3 flores en cada uno. ¿Cuántas flores hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "4 × 3 = 12. Cuatro floreros de tres flores reúnen doce flores.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"15","orden":1,"es_correcta":false},{"texto":"9","orden":2,"es_correcta":false},{"texto":"7","orden":3,"es_correcta":false},{"texto":"12","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Tres botes llevan 5 pasajeros cada uno. ¿Cuántos pasajeros llevan entre todos?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "3 × 5 = 15. Tres botes de cinco pasajeros llevan quince pasajeros.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"15","orden":1,"es_correcta":true},{"texto":"12","orden":2,"es_correcta":false},{"texto":"18","orden":3,"es_correcta":false},{"texto":"8","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En 6 bolsas hay 3 naranjas por bolsa. ¿Cuántas naranjas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "6 × 3 = 18. Seis bolsas de tres naranjas suman dieciocho.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"21","orden":1,"es_correcta":false},{"texto":"18","orden":2,"es_correcta":true},{"texto":"15","orden":3,"es_correcta":false},{"texto":"9","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Tres árboles tienen 7 mangos cada uno. ¿Cuántos mangos hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "3 × 7 = 21. Tres árboles de siete mangos tienen veintiún mangos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"18","orden":1,"es_correcta":false},{"texto":"24","orden":2,"es_correcta":false},{"texto":"21","orden":3,"es_correcta":true},{"texto":"10","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Ana pega 3 estrellas en cada una de 8 páginas. ¿Cuántas estrellas pega?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "8 × 3 = 24. Ocho páginas con tres estrellas suman veinticuatro.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"21","orden":1,"es_correcta":false},{"texto":"11","orden":2,"es_correcta":false},{"texto":"27","orden":3,"es_correcta":false},{"texto":"24","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "En 3 tazones hay 9 bolitas de papel por tazón. ¿Cuántas bolitas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "3 × 9 = 27. Tres tazones de nueve bolitas tienen veintisiete bolitas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"27","orden":1,"es_correcta":true},{"texto":"30","orden":2,"es_correcta":false},{"texto":"24","orden":3,"es_correcta":false},{"texto":"12","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Cada uno de 10 sobres tiene 3 tarjetas. ¿Cuántas tarjetas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "10 × 3 = 30. Diez sobres de tres tarjetas contienen treinta tarjetas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"27","orden":1,"es_correcta":false},{"texto":"30","orden":2,"es_correcta":true},{"texto":"13","orden":3,"es_correcta":false},{"texto":"33","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-3", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 3", "enunciado": "Cada una de 3 bicicletas lleva 3 reflectores. ¿Cuántos reflectores hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 3 = 9. Tres bicicletas de tres reflectores tienen nueve.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"6","orden":1,"es_correcta":false},{"texto":"12","orden":2,"es_correcta":false},{"texto":"9","orden":3,"es_correcta":true},{"texto":"3","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Cada mano tiene 5 dedos. ¿Cuántos dedos hay en 2 manos?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "2 × 5 = 10. Dos manos tienen diez dedos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"10","orden":1,"es_correcta":true},{"texto":"7","orden":2,"es_correcta":false},{"texto":"5","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 3 paquetes con 5 globos cada uno. ¿Cuántos globos hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 5 = 15. Tres paquetes de cinco globos tienen quince globos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"10","orden":1,"es_correcta":false},{"texto":"15","orden":2,"es_correcta":true},{"texto":"20","orden":3,"es_correcta":false},{"texto":"8","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En cada una de 4 mesas hay 5 vasos. ¿Cuántos vasos hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "4 × 5 = 20. Cuatro mesas de cinco vasos reúnen veinte vasos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"9","orden":1,"es_correcta":false},{"texto":"15","orden":2,"es_correcta":false},{"texto":"20","orden":3,"es_correcta":true},{"texto":"25","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Cinco cajas tienen 5 fichas cada una. ¿Cuántas fichas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "5 × 5 = 25. Cinco cajas de cinco fichas son veinticinco fichas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"20","orden":1,"es_correcta":false},{"texto":"30","orden":2,"es_correcta":false},{"texto":"10","orden":3,"es_correcta":false},{"texto":"25","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 6 frascos con 5 monedas en cada uno. ¿Cuántas monedas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "6 × 5 = 30. Seis frascos de cinco monedas contienen treinta monedas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"30","orden":1,"es_correcta":true},{"texto":"25","orden":2,"es_correcta":false},{"texto":"35","orden":3,"es_correcta":false},{"texto":"11","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Para una fiesta se sirven 7 platos con 5 galletas en cada plato. ¿Cuántas galletas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "7 × 5 = 35. Siete platos de cinco galletas suman treinta y cinco.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"30","orden":1,"es_correcta":false},{"texto":"35","orden":2,"es_correcta":true},{"texto":"40","orden":3,"es_correcta":false},{"texto":"12","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 8 sobres con 5 estampas en cada uno. ¿Cuántas estampas hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "8 × 5 = 40. Ocho sobres de cinco estampas tienen cuarenta estampas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"35","orden":1,"es_correcta":false},{"texto":"45","orden":2,"es_correcta":false},{"texto":"40","orden":3,"es_correcta":true},{"texto":"13","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Un jardín tiene 9 macetas con 5 flores en cada una. ¿Cuántas flores hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "9 × 5 = 45. Nueve macetas de cinco flores tienen cuarenta y cinco flores.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"40","orden":1,"es_correcta":false},{"texto":"50","orden":2,"es_correcta":false},{"texto":"14","orden":3,"es_correcta":false},{"texto":"45","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 10 bolsas con 5 naranjas en cada una. ¿Cuántas naranjas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "10 × 5 = 50. Diez bolsas de cinco naranjas suman cincuenta.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"50","orden":1,"es_correcta":true},{"texto":"45","orden":2,"es_correcta":false},{"texto":"55","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Un paquete trae 5 colores. Si Camila compra 1 paquete, ¿cuántos colores recibe?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "1 × 5 = 5. Un paquete de cinco colores tiene cinco colores.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"10","orden":1,"es_correcta":false},{"texto":"5","orden":2,"es_correcta":true},{"texto":"6","orden":3,"es_correcta":false},{"texto":"1","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Se forman 2 equipos de 5 niños. ¿Cuántos niños participan?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "2 × 5 = 10. Dos equipos de cinco niños reúnen diez.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"5","orden":1,"es_correcta":false},{"texto":"7","orden":2,"es_correcta":false},{"texto":"10","orden":3,"es_correcta":true},{"texto":"15","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En 3 canastas hay 5 mangos por canasta. ¿Cuántos mangos hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 5 = 15. Tres canastas de cinco mangos tienen quince mangos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"20","orden":1,"es_correcta":false},{"texto":"8","orden":2,"es_correcta":false},{"texto":"10","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Cinco estudiantes reciben 5 calcomanías cada uno. ¿Cuántas calcomanías reciben en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "5 × 5 = 25. Cinco grupos de cinco calcomanías son veinticinco.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"25","orden":1,"es_correcta":true},{"texto":"20","orden":2,"es_correcta":false},{"texto":"30","orden":3,"es_correcta":false},{"texto":"10","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "María lee 5 páginas cada día durante 6 días. ¿Cuántas páginas lee en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "6 × 5 = 30. Leer cinco páginas durante seis días da treinta páginas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"25","orden":1,"es_correcta":false},{"texto":"30","orden":2,"es_correcta":true},{"texto":"35","orden":3,"es_correcta":false},{"texto":"11","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En 5 estantes hay 7 libros por estante. ¿Cuántos libros hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "5 × 7 = 35. Cinco estantes de siete libros tienen treinta y cinco libros.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"30","orden":1,"es_correcta":false},{"texto":"40","orden":2,"es_correcta":false},{"texto":"35","orden":3,"es_correcta":true},{"texto":"12","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 5 mesas con 8 lápices en cada una. ¿Cuántos lápices hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "5 × 8 = 40. Cinco mesas de ocho lápices reúnen cuarenta lápices.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"45","orden":1,"es_correcta":false},{"texto":"35","orden":2,"es_correcta":false},{"texto":"13","orden":3,"es_correcta":false},{"texto":"40","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Julia hace 9 pulseras con 5 cuentas en cada una. ¿Cuántas cuentas usa?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "9 × 5 = 45. Nueve pulseras de cinco cuentas necesitan cuarenta y cinco.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"45","orden":1,"es_correcta":true},{"texto":"40","orden":2,"es_correcta":false},{"texto":"50","orden":3,"es_correcta":false},{"texto":"14","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En 5 frascos hay 10 botones por frasco. ¿Cuántos botones hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "5 × 10 = 50. Cinco frascos de diez botones tienen cincuenta botones.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"55","orden":1,"es_correcta":false},{"texto":"50","orden":2,"es_correcta":true},{"texto":"45","orden":3,"es_correcta":false},{"texto":"15","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En el patio hay 4 filas de 5 sillas. ¿Cuántas sillas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "4 × 5 = 20. Cuatro filas de cinco sillas tienen veinte sillas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"15","orden":1,"es_correcta":false},{"texto":"25","orden":2,"es_correcta":false},{"texto":"20","orden":3,"es_correcta":true},{"texto":"9","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Una panadería prepara 3 bandejas con 5 panes cada una. ¿Cuántos panes prepara?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 1, "explicacion": "3 × 5 = 15. Tres bandejas de cinco panes contienen quince panes.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"15","orden":1,"es_correcta":true},{"texto":"10","orden":2,"es_correcta":false},{"texto":"20","orden":3,"es_correcta":false},{"texto":"8","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Cada una de 6 materas tiene 5 semillas. ¿Cuántas semillas hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "6 × 5 = 30. Seis materas de cinco semillas tienen treinta semillas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"35","orden":1,"es_correcta":false},{"texto":"25","orden":2,"es_correcta":false},{"texto":"11","orden":3,"es_correcta":false},{"texto":"30","orden":4,"es_correcta":true}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En 7 mesas hay 5 estudiantes por mesa. ¿Cuántos estudiantes hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 2, "explicacion": "7 × 5 = 35. Siete mesas de cinco estudiantes reúnen treinta y cinco.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"35","orden":1,"es_correcta":true},{"texto":"30","orden":2,"es_correcta":false},{"texto":"40","orden":3,"es_correcta":false},{"texto":"12","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Ana pega 5 estrellas en cada una de 8 páginas. ¿Cuántas estrellas pega?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "8 × 5 = 40. Ocho páginas de cinco estrellas tienen cuarenta estrellas.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"35","orden":1,"es_correcta":false},{"texto":"40","orden":2,"es_correcta":true},{"texto":"45","orden":3,"es_correcta":false},{"texto":"13","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "Hay 9 bolsas con 5 dulces en cada una. ¿Cuántos dulces hay en total?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "9 × 5 = 45. Nueve bolsas de cinco dulces suman cuarenta y cinco.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"40","orden":1,"es_correcta":false},{"texto":"50","orden":2,"es_correcta":false},{"texto":"45","orden":3,"es_correcta":true},{"texto":"14","orden":4,"es_correcta":false}]
+    },
+    {
+      "pregunta_origen_id": null, "version": 1, "area_id": 3, "grado": 2, "tema": "Tablas de multiplicar", "tags": ["tabla-5", "multiplicacion"],
+      "competencia": "Resuelve problemas de grupos iguales con la tabla del 5", "enunciado": "En 10 canastas hay 5 bananos por canasta. ¿Cuántos bananos hay?", "contexto": null,
+      "recurso_ruta": null, "tipo_recurso": null, "tipo": "seleccion_unica", "dificultad": 3, "explicacion": "10 × 5 = 50. Diez canastas de cinco bananos tienen cincuenta bananos.",
+      "procedencia": "propia", "fuente_nombre": null, "fuente_url": null, "licencia": null, "estado": "borrador",
+      "opciones": [{"texto":"45","orden":1,"es_correcta":false},{"texto":"55","orden":2,"es_correcta":false},{"texto":"15","orden":3,"es_correcta":false},{"texto":"50","orden":4,"es_correcta":true}]
+    }
+  ]
+}

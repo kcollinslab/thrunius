@@ -21,6 +21,7 @@ import ProfilesListView from '../views/profiles/ProfilesListView.vue'
 import EditProfileView from '../views/profiles/EditProfileView.vue'
 import ChangePassword from '../views/profiles/ChangePassword.vue'
 import ResponderPregunta from '../views/cloudbook/responder/ResponderPregunta.vue'
+import { CBK_AREAS } from '../constants/catalogs/cloudbook'
 import { supabase } from '../lib/supabase'
 import { withTimeout, isTimeoutError } from '../lib/asyncTimeout'
 import { hasRecentPasswordRecoveryRequest } from '../lib/passwordRecoveryFlow'
@@ -77,8 +78,20 @@ const routes = [
   },
   {
     path: '/cloudbook/responder',
+    redirect: { name: 'cloudbook-responder', params: { area: 'ingles', grado: '2' } },
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/cloudbook/responder/:area/:grado(\\d+)',
     name: 'cloudbook-responder',
     component: ResponderPregunta,
+    props: true,
+    beforeEnter: (to) => {
+      const areaValida = CBK_AREAS.some(({ key }) => key === to.params.area)
+      const grado = Number(to.params.grado)
+      if (areaValida && Number.isInteger(grado) && grado >= 1 && grado <= 11) return true
+      return { name: 'cloudbook-responder', params: { area: 'ingles', grado: '2' } }
+    },
     meta: { title: 'Responder preguntas', requiresAuth: true }
   },
   {
