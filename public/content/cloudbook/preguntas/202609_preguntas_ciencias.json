@@ -1,0 +1,2829 @@
+{
+  "metadatos": {
+    "tabla_destino": "public.cbk_preguntas",
+    "tabla_opciones_destino": "public.cbk_pregunta_opciones",
+    "area_clave": "ciencias_naturales",
+    "area_id_verificado": 2,
+    "grado": 2,
+    "edad_referencial": "7-8 años",
+    "pais": "Colombia",
+    "cantidad": 60,
+    "estado": "borrador",
+    "nota": "Banco alineado con los DBA de Ciencias Naturales para grado 2 de Colombia: estados de la materia, fuerza y deformación, relación entre seres vivos y ambiente, y ciclos de vida. Cada pregunta tiene cuatro opciones, una respuesta correcta y tags en formato slug."
+  },
+  "preguntas": [
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "solidos"
+      ],
+      "competencia": "Clasifica materiales según su estado y propiedades observables",
+      "enunciado": "¿Por qué una piedra se clasifica como un sólido?",
+      "contexto": "Valeria observa una piedra sobre la mesa.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La piedra es sólida porque tiene forma propia y conserva su forma.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Porque conserva su forma",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Porque toma la forma del vaso",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Porque no ocupa espacio",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Porque siempre fluye",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos"
+      ],
+      "competencia": "Reconoce propiedades básicas de los líquidos",
+      "enunciado": "Si pasamos agua de una botella a un vaso, ¿qué ocurre con su forma?",
+      "contexto": "El agua se vierte sin derramarse.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Los líquidos no tienen forma propia; adoptan la forma del recipiente.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Conserva la forma de la botella",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Toma la forma del vaso",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se convierte en sólido",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Desaparece",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "gases",
+        "aire"
+      ],
+      "competencia": "Reconoce el aire como materia aunque no sea visible",
+      "enunciado": "¿Cuál experiencia muestra que el aire está presente?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Al inflar el globo, el aire entra y ocupa espacio.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Mirar una piedra",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Tocar una mesa",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Inflar un globo",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Doblar una hoja",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos",
+        "viscosidad"
+      ],
+      "competencia": "Compara propiedades observables de diferentes líquidos",
+      "enunciado": "¿Cuál líquido fluye más lentamente al inclinar una cuchara?",
+      "contexto": "Se comparan agua, aceite, miel y jugo.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La miel es más viscosa y por eso fluye más lentamente que el agua o el jugo.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "El agua",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "El jugo",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El aire",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "La miel",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos",
+        "fluidez"
+      ],
+      "competencia": "Identifica la fluidez como propiedad de los líquidos",
+      "enunciado": "¿Qué tienen en común el agua y el aceite?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "El agua y el aceite son líquidos y pueden fluir.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Ambos pueden fluir",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Ambos tienen forma propia",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ambos son gases",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ambos son duros",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "solidos"
+      ],
+      "competencia": "Clasifica objetos cotidianos según su estado",
+      "enunciado": "¿Cuál de estos elementos es un sólido?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Un cubo de hielo es agua en estado sólido y tiene forma propia.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "El aire",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Un cubo de hielo",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "El jugo",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "El vapor de agua",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "gases"
+      ],
+      "competencia": "Diferencia sólidos, líquidos y gases",
+      "enunciado": "¿En qué estado se encuentra el vapor de agua?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "El vapor de agua corresponde al estado gaseoso.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Sólido",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Líquido",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Gaseoso",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Gelatinoso",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "gases",
+        "aire"
+      ],
+      "competencia": "Interpreta evidencias de que el aire ocupa espacio",
+      "enunciado": "Una botella vacía y tapada no se puede aplastar fácilmente. ¿Qué hay dentro de ella?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Aunque no lo veamos, dentro de la botella hay aire que ocupa espacio.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Agua",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Arena",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Hielo",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aire",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos"
+      ],
+      "competencia": "Predice el comportamiento de un líquido al cambiar de recipiente",
+      "enunciado": "Se vierte jugo de un vaso alto a un recipiente ancho. ¿Qué cambia?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El jugo sigue siendo líquido, pero adopta la forma del nuevo recipiente.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La forma del jugo",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "El jugo deja de ser líquido",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El jugo se vuelve aire",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "El jugo obtiene forma propia",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "clasificacion-materiales"
+      ],
+      "competencia": "Clasifica materiales en sólidos, líquidos y gases",
+      "enunciado": "¿Cuál grupo está ordenado como sólido, líquido y gas?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El libro es sólido, la leche es líquida y el aire es gaseoso.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Aire, piedra, agua",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Libro, leche, aire",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Jugo, cuaderno, aire",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Leche, aire, lápiz",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos",
+        "transparencia"
+      ],
+      "competencia": "Compara líquidos por sus propiedades observables",
+      "enunciado": "¿Cuál líquido permite ver con mayor claridad un objeto colocado detrás?",
+      "contexto": "Los recipientes contienen agua limpia, leche, chocolate y miel.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El agua limpia es transparente y deja pasar más luz.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La leche",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "El chocolate",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El agua limpia",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "La miel oscura",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "liquidos",
+        "viscosidad"
+      ],
+      "competencia": "Relaciona la viscosidad con la rapidez de flujo",
+      "enunciado": "En una carrera por una tabla inclinada, ¿qué líquido probablemente llegará primero?",
+      "contexto": "Compiten una gota de agua y una gota de miel.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "El agua es menos viscosa que la miel y fluye con mayor rapidez.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La miel",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Llegan siempre al mismo tiempo",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ninguna puede moverse",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "El agua",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "solidos"
+      ],
+      "competencia": "Reconoce que los sólidos conservan su forma",
+      "enunciado": "¿Qué objeto conserva su forma aunque lo cambiemos de caja?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "El lápiz es sólido y conserva su forma al cambiarlo de recipiente.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Un lápiz",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Un vaso de agua",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El aire de un globo abierto",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Un poco de jugo",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "gases",
+        "aire"
+      ],
+      "competencia": "Describe el comportamiento de los gases",
+      "enunciado": "¿Qué sucede con el aire cuando entra en un globo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El aire se distribuye y ocupa espacio dentro del globo.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se convierte en piedra",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ocupa el espacio dentro del globo",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Queda solo en el fondo",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Deja de ser materia",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Estados de la materia",
+      "tags": [
+        "estados-materia",
+        "aire",
+        "observacion"
+      ],
+      "competencia": "Propone experiencias sencillas para reconocer el aire",
+      "enunciado": "¿Qué acción permite sentir el movimiento del aire?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Al abanicarnos, el aire se mueve y podemos sentirlo en la piel.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Mirar un cuaderno cerrado",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Poner una piedra en la mesa",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Abanicarse con una hoja",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Apagar una linterna",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "plastilina",
+        "aplastar"
+      ],
+      "competencia": "Reconoce que una fuerza puede cambiar la forma de un objeto",
+      "enunciado": "¿Qué ocurre al presionar una bola de plastilina con la mano?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La presión de la mano aplica una fuerza que deforma la plastilina.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se convierte en agua",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Desaparece",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Se vuelve más liviana sin cambiar",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Se aplasta y cambia de forma",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "estirar",
+        "elasticidad"
+      ],
+      "competencia": "Relaciona una acción mecánica con la deformación producida",
+      "enunciado": "¿Qué acción cambia la longitud de una banda elástica?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Al estirar la banda aplicamos una fuerza que aumenta temporalmente su longitud.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Estirarla",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Mirarla",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Iluminarla",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Dejarla sobre la mesa",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "comprimir",
+        "esponja"
+      ],
+      "competencia": "Identifica cambios de forma causados por compresión",
+      "enunciado": "¿Qué sucede al apretar una esponja suave?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Apretar aplica una fuerza de compresión que reduce temporalmente el tamaño de la esponja.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se vuelve metal",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Se comprime",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se derrite de inmediato",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Crece sin límite",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "torcer",
+        "tela"
+      ],
+      "competencia": "Diferencia acciones que deforman materiales",
+      "enunciado": "¿Qué acción hacemos con un paño mojado para sacar parte del agua?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Al torcer el paño aplicamos fuerzas que cambian su forma y expulsan agua.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Iluminarlo",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Pintarlo",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Torcerlo",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Dejarlo quieto",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "doblar",
+        "papel"
+      ],
+      "competencia": "Predice el efecto de una fuerza sobre el papel",
+      "enunciado": "¿Qué ocurre si doblamos una hoja de papel por la mitad?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Doblar aplica una fuerza que deforma el papel y produce un pliegue.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se vuelve líquida",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Se convierte en madera",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "No ocurre ningún cambio",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cambia de forma y queda un pliegue",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "resistencia-materiales",
+        "madera"
+      ],
+      "competencia": "Compara materiales según su resistencia a la deformación",
+      "enunciado": "¿Cuál objeto es más difícil de comprimir con las manos?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La madera ofrece mayor resistencia a la compresión que la esponja, el algodón o el cojín.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Un bloque de madera",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Una esponja",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una bola de algodón",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Un cojín",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "resistencia-materiales",
+        "plastilina"
+      ],
+      "competencia": "Compara cambios de forma en materiales distintos",
+      "enunciado": "Si presionamos con igual fuerza una cuchara metálica y plastilina, ¿cuál cambia más fácilmente de forma?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La plastilina se deforma con menor fuerza que una cuchara metálica.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La cuchara metálica",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "La plastilina",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Ambas se derriten",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ninguna ocupa espacio",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "elasticidad",
+        "resorte"
+      ],
+      "competencia": "Reconoce materiales que recuperan su forma",
+      "enunciado": "¿Qué suele hacer un resorte después de comprimirlo y soltarlo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Un resorte es elástico y puede recuperar su forma al dejar de aplicar la fuerza.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se transforma en líquido",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Desaparece",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Recupera su forma",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se convierte en papel",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "deformacion-permanente",
+        "arcilla"
+      ],
+      "competencia": "Distingue deformaciones temporales y permanentes",
+      "enunciado": "Después de moldear una figura de arcilla, ¿qué ocurre al retirar las manos?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La arcilla puede conservar la forma producida por la fuerza aplicada.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Vuelve siempre a ser una esfera",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Se convierte en gas",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Empieza a fluir como agua",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "La figura conserva la nueva forma",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "aplastar",
+        "lata"
+      ],
+      "competencia": "Selecciona la acción necesaria para producir una deformación",
+      "enunciado": "¿Qué acción puede aplanar una lata vacía y delgada?",
+      "contexto": "La actividad debe realizarla un adulto con cuidado.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Comprimir aplica una fuerza capaz de deformar una lata delgada.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Comprimirla",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Olerla",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Escucharla",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Ponerla junto a otra lata",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "arrugar",
+        "papel"
+      ],
+      "competencia": "Relaciona fuerzas con cambios visibles en objetos",
+      "enunciado": "¿Qué cambio se produce al arrugar una hoja?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La fuerza de las manos cambia la forma de la hoja y crea pliegues.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se vuelve transparente",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aparecen pliegues y cambia su forma",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se convierte en gas",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aumenta su cantidad de materia",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "elasticidad",
+        "globo"
+      ],
+      "competencia": "Predice la respuesta de un material flexible a una fuerza",
+      "enunciado": "¿Qué ocurre al apretar suavemente un globo inflado y luego soltarlo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El caucho flexible cambia de forma mientras se aplica la fuerza y puede recuperarla al soltarlo.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se vuelve sólido",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Pierde todo el aire sin abrirse",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cambia de forma y luego la recupera",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se convierte en agua",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "estirar",
+        "seguridad"
+      ],
+      "competencia": "Reconoce límites en la deformación de materiales",
+      "enunciado": "¿Qué puede pasar si estiramos demasiado una banda elástica?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Una fuerza excesiva puede superar la resistencia del material y romperlo.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Puede convertirse en hielo",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede producir raíces",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede dejar de ocupar espacio",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede romperse",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "resistencia-materiales",
+        "comparacion"
+      ],
+      "competencia": "Clasifica materiales por su resistencia a deformarse",
+      "enunciado": "¿Cuál material se deforma más fácilmente al presionarlo?",
+      "contexto": "Se comparan espuma, madera, vidrio y metal.",
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La espuma es blanda y se comprime con mayor facilidad.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La espuma",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "La madera",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El vidrio",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "El metal",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Fuerza y deformación",
+      "tags": [
+        "fuerzas-deformacion",
+        "empujar",
+        "movimiento"
+      ],
+      "competencia": "Reconoce efectos de una fuerza sobre un objeto",
+      "enunciado": "¿Qué puede ocurrir al empujar una pelota que está quieta?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Un empujón es una fuerza que puede poner en movimiento la pelota.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Puede convertirse en gas",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede comenzar a moverse",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Puede germinar",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede perder su forma para siempre",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "adaptaciones",
+        "desplazamiento"
+      ],
+      "competencia": "Relaciona características físicas con el ambiente donde vive un animal",
+      "enunciado": "¿Cómo ayudan las patas palmeadas a un pato?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Las membranas entre los dedos impulsan el agua y facilitan la natación.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Le ayudan a respirar bajo tierra",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Le permiten producir semillas",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Le ayudan a nadar",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Le sirven para masticar",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "adaptaciones",
+        "ambiente-acuatico"
+      ],
+      "competencia": "Explica cómo una característica ayuda a vivir en cierto ambiente",
+      "enunciado": "¿Qué característica permite a los peces obtener oxígeno del agua?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Los peces usan sus branquias para obtener oxígeno disuelto en el agua.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Las plumas",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Las raíces",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El pelaje",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Las branquias",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "adaptaciones",
+        "proteccion"
+      ],
+      "competencia": "Relaciona cubiertas corporales con protección y ambiente",
+      "enunciado": "¿Para qué sirve el pelaje grueso de un oso que vive en un lugar frío?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El pelaje grueso ayuda a proteger al animal de las bajas temperaturas.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Para conservar el calor",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Para respirar bajo el agua",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Para producir frutos",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Para convertirse en planta",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "plantas",
+        "ambiente-seco"
+      ],
+      "competencia": "Relaciona estructuras de las plantas con sus necesidades",
+      "enunciado": "¿Qué ventaja tiene un cactus al almacenar agua en su tallo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El agua almacenada ayuda al cactus durante periodos con poca lluvia.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Puede nadar más rápido",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede sobrevivir en ambientes secos",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Puede vivir sin luz para siempre",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede alimentarse de piedras",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "plantas",
+        "raices"
+      ],
+      "competencia": "Reconoce funciones de estructuras vegetales en el ambiente",
+      "enunciado": "¿Qué parte de una planta absorbe principalmente agua del suelo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Las raíces toman agua y minerales del suelo y ayudan a sostener la planta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La flor",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "El fruto",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "La raíz",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "La semilla seca",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "adaptaciones",
+        "desplazamiento"
+      ],
+      "competencia": "Clasifica animales según su forma de desplazamiento",
+      "enunciado": "¿Qué característica ayuda principalmente a un ave a volar?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Las alas permiten a muchas aves desplazarse por el aire.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Sus raíces",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Sus aletas",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Su caparazón",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Sus alas",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "dieta",
+        "herbivoros"
+      ],
+      "competencia": "Clasifica animales según su dieta",
+      "enunciado": "Una vaca se alimenta principalmente de pasto. ¿Cómo se clasifica por su dieta?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Los animales herbívoros se alimentan principalmente de plantas.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Herbívora",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Carnívora",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Insectívora",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Mineral",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "dieta",
+        "carnivoros"
+      ],
+      "competencia": "Relaciona el tipo de alimento con la dieta animal",
+      "enunciado": "Un león se alimenta de otros animales. ¿Cómo se clasifica por su dieta?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Los carnívoros se alimentan principalmente de otros animales.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Herbívoro",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Carnívoro",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Productor de flores",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Descomponedor de piedras",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "proteccion",
+        "caparazon"
+      ],
+      "competencia": "Identifica estructuras corporales de protección",
+      "enunciado": "¿Cómo protege el caparazón a una tortuga?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "El caparazón es una cubierta dura que protege el cuerpo de la tortuga.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Le permite fabricar alimento con luz",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Le sirve para respirar como pez",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cubre las partes blandas de su cuerpo",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "La convierte en planta",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "proteccion",
+        "concha"
+      ],
+      "competencia": "Explica la función protectora de una estructura animal",
+      "enunciado": "Cuando un caracol siente peligro, ¿qué estructura usa como refugio?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La concha protege el cuerpo blando del caracol.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Sus hojas",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Sus branquias",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Sus plumas",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Su concha",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "habitats",
+        "anfibios"
+      ],
+      "competencia": "Relaciona necesidades de un animal con su hábitat",
+      "enunciado": "¿Qué lugar es más adecuado para una rana?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Las ranas necesitan humedad y suelen vivir cerca de fuentes de agua.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Una zona húmeda cerca del agua",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Una caja seca y cerrada",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una roca sin agua ni alimento",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Un congelador",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "habitats",
+        "ambiente-seco"
+      ],
+      "competencia": "Predice qué animal está mejor adaptado a un ambiente",
+      "enunciado": "¿Qué animal puede vivir mejor en un lugar muy seco y con poca agua?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "El camello posee características que le permiten vivir en ambientes secos.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "El pez",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "El camello",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "El renacuajo",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "La medusa",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "necesidades-basicas",
+        "luz"
+      ],
+      "competencia": "Predice efectos de no satisfacer una necesidad de las plantas",
+      "enunciado": "¿Qué puede ocurrir con una planta que permanece muchos días sin luz?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "La luz es necesaria para que las plantas produzcan su alimento y se desarrollen.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Puede aprender a caminar",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede convertirse en piedra",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Puede debilitarse y perder color",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Puede vivir mejor que con luz",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "necesidades-basicas",
+        "agua"
+      ],
+      "competencia": "Predice efectos de la falta de agua en una planta",
+      "enunciado": "¿Qué señal puede mostrar una planta que no recibe suficiente agua?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La falta de agua puede hacer que las hojas pierdan firmeza y se marchiten.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Aletas nuevas",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Plumas más largas",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Caparazón duro",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Hojas marchitas",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Seres vivos y ambiente",
+      "tags": [
+        "seres-vivos-ambiente",
+        "necesidades-basicas",
+        "habitat"
+      ],
+      "competencia": "Reconoce necesidades básicas de los animales",
+      "enunciado": "¿Qué conjunto reúne necesidades básicas de un animal?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Los animales necesitan agua, alimento, aire y un ambiente que les brinde protección.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Agua, alimento, aire y refugio",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Juguetes, pintura y vidrio",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Solo piedras y arena",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Únicamente luz de una lámpara",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "germinacion"
+      ],
+      "competencia": "Ordena cambios en el ciclo de vida de una planta",
+      "enunciado": "¿Qué proceso comienza cuando una semilla recibe agua y condiciones adecuadas?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La germinación es el inicio del crecimiento de una nueva planta desde la semilla.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La evaporación",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "La germinación",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "La congelación",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "La oxidación",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "germinacion"
+      ],
+      "competencia": "Reconoce cambios tempranos durante la germinación",
+      "enunciado": "¿Qué estructura suele aparecer primero cuando germina una semilla de fríjol?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La primera raíz ayuda a fijar la planta y a absorber agua.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Un fruto grande",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una flor completa",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una pequeña raíz",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Una rama con nido",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "crecimiento-plantas"
+      ],
+      "competencia": "Describe cambios físicos durante el desarrollo de una planta",
+      "enunciado": "Después de germinar, ¿qué cambio muestra que una planta está creciendo?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Durante el crecimiento se desarrollan el tallo y las primeras hojas.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "La semilla se vuelve piedra",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "La planta pierde todas sus partes",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aparecen aletas",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aparecen tallo y hojas",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "floracion"
+      ],
+      "competencia": "Identifica etapas del ciclo de vida vegetal",
+      "enunciado": "¿Cómo se llama la etapa en la que una planta produce flores?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "La floración es la etapa en que aparecen flores en la planta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Floración",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Congelación",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Respiración acuática",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Migración",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "frutos"
+      ],
+      "competencia": "Relaciona flores, frutos y semillas en el desarrollo vegetal",
+      "enunciado": "En muchas plantas, ¿qué puede formarse después de la flor?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "En muchas plantas, después de la floración se forman frutos que contienen semillas.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Una pluma",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Un fruto",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Un caparazón",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una aleta",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "semillas"
+      ],
+      "competencia": "Reconoce la función de las semillas en el ciclo de vida",
+      "enunciado": "¿Qué puede originar una semilla en condiciones adecuadas?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Una semilla puede germinar y dar origen a una nueva planta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Un animal adulto",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una roca",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Una nueva planta",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Una nube",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "animales",
+        "mariposa"
+      ],
+      "competencia": "Ordena etapas del ciclo de vida de un animal",
+      "enunciado": "¿Cuál es el orden correcto del ciclo de una mariposa?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "La mariposa pasa por huevo, oruga, crisálida y finalmente adulta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Mariposa, pez, huevo, flor",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Oruga, semilla, árbol, mariposa",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Huevo, renacuajo, rana, mariposa",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Huevo, oruga, crisálida, mariposa",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "animales",
+        "rana"
+      ],
+      "competencia": "Reconoce cambios físicos en el ciclo de vida de una rana",
+      "enunciado": "¿Qué etapa aparece entre el huevo y la rana adulta?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Del huevo nace un renacuajo, que cambia hasta convertirse en rana adulta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "El renacuajo",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "La oruga",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "La semilla",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "La crisálida",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "animales",
+        "aves"
+      ],
+      "competencia": "Identifica etapas de crecimiento en las aves",
+      "enunciado": "¿Cuál secuencia representa el crecimiento de una gallina?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "La gallina nace de un huevo, crece como pollito y llega a ser adulta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Semilla, brote, gallina",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Huevo, pollito, gallina adulta",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Huevo, renacuajo, gallina",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Pollito, huevo, semilla",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "animales",
+        "crecimiento-animal"
+      ],
+      "competencia": "Describe cambios durante el crecimiento animal",
+      "enunciado": "¿Qué cambio ocurre normalmente cuando un cachorro crece?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "Durante su ciclo de vida, el cachorro crece y se convierte en perro adulto.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Se convierte en planta",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Pierde la necesidad de alimento",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Aumenta de tamaño y se vuelve adulto",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Se transforma en piedra",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "animales",
+        "crecimiento-animal"
+      ],
+      "competencia": "Compara etapas juveniles y adultas de un animal",
+      "enunciado": "¿Cuál característica suele diferenciar a un animal joven de uno adulto de la misma especie?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 1,
+      "explicacion": "El crecimiento suele producir cambios de tamaño y desarrollo hasta la etapa adulta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "El joven siempre tiene raíces",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "El adulto deja de ser un ser vivo",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "El joven no necesita agua",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "El animal joven suele ser más pequeño",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "secuencias"
+      ],
+      "competencia": "Organiza etapas del ciclo de vida de una planta",
+      "enunciado": "¿Cuál secuencia está ordenada correctamente?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "La planta inicia como semilla, germina, crece y llega a la etapa adulta.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Semilla, germinación, planta joven, planta adulta",
+          "orden": 1,
+          "es_correcta": true
+        },
+        {
+          "texto": "Planta adulta, semilla, germinación, fruto",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Flor, piedra, semilla, animal",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Germinación, planta adulta, semilla, raíz",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "observacion"
+      ],
+      "competencia": "Selecciona una forma de registrar el crecimiento de una planta",
+      "enunciado": "¿Cuál es la mejor manera de observar el crecimiento de una planta de fríjol durante dos semanas?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "Medir y registrar diariamente permite comparar los cambios de la planta con el tiempo.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Mirarla solo el último día",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Medirla y dibujar sus cambios cada día",
+          "orden": 2,
+          "es_correcta": true
+        },
+        {
+          "texto": "Cambiarla de lugar cada hora sin registrar",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Adivinar cuánto creció",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "seres-vivos",
+        "cambios"
+      ],
+      "competencia": "Reconoce que los seres vivos cambian con el tiempo",
+      "enunciado": "¿Qué afirmación describe mejor un ciclo de vida?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 2,
+      "explicacion": "Los ciclos de vida representan cambios como nacimiento, crecimiento, reproducción y muerte.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Los seres vivos nunca cambian",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Solo las plantas tienen etapas",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Los seres vivos nacen, crecen y pueden reproducirse",
+          "orden": 3,
+          "es_correcta": true
+        },
+        {
+          "texto": "Los objetos inertes nacen y crecen",
+          "orden": 4,
+          "es_correcta": false
+        }
+      ]
+    },
+    {
+      "pregunta_origen_id": null,
+      "version": 1,
+      "area_id": 2,
+      "grado": 2,
+      "tema": "Ciclos de vida",
+      "tags": [
+        "ciclos-de-vida",
+        "plantas",
+        "reproduccion"
+      ],
+      "competencia": "Explica cómo puede reiniciarse el ciclo de una planta",
+      "enunciado": "¿Cómo puede comenzar de nuevo el ciclo de vida de una planta con flores?",
+      "contexto": null,
+      "recurso_ruta": null,
+      "tipo_recurso": null,
+      "tipo": "seleccion_unica",
+      "dificultad": 3,
+      "explicacion": "Las semillas producidas por la planta pueden germinar y originar nuevas plantas.",
+      "procedencia": "propia",
+      "fuente_nombre": null,
+      "fuente_url": null,
+      "licencia": null,
+      "estado": "borrador",
+      "opciones": [
+        {
+          "texto": "Cuando una piedra cambia de lugar",
+          "orden": 1,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cuando el aire deja de moverse",
+          "orden": 2,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cuando una hoja de papel se dobla",
+          "orden": 3,
+          "es_correcta": false
+        },
+        {
+          "texto": "Cuando una de sus semillas germina",
+          "orden": 4,
+          "es_correcta": true
+        }
+      ]
+    }
+  ]
+}

@@ -258,10 +258,41 @@ function obtenerMensajeError(error) {
   <main class="responder-page py-3 py-lg-5">
     <div class="container-xl">
       <header class="page-header d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-2 gap-lg-3 mb-3 mb-lg-4">
-        <div>
-          <span class="eyebrow">Práctica por área</span>
-          <h1 class="page-title fw-bold mb-1">Preguntas de {{ areaLabel }} · Grado {{ gradoNumero }}</h1>
-          <p class="page-subtitle text-secondary mb-0">Selecciona una opción y envía tu respuesta.</p>
+        <div class="page-heading">
+          <h1 class="page-title fw-bold mb-0">Preguntas de {{ areaLabel }} · Grado {{ gradoNumero }}</h1>
+
+          <section class="progress-summary mt-2" aria-label="Progreso guardado en este navegador">
+            <div class="progress-stat">
+              <span>Respondidas</span>
+              <strong>{{ progreso.respondidas }}</strong>
+            </div>
+            <div class="progress-stat">
+              <span class="progress-stat-label">
+                <i class="bi bi-check-circle-fill text-success" aria-hidden="true"></i>
+                Correctas
+              </span>
+              <strong>{{ progreso.correctas }}</strong>
+            </div>
+            <div class="progress-stat progress-stat-accuracy">
+              <div class="accuracy-header">
+                <span>Aciertos</span>
+                <strong>{{ porcentajeAciertos }}%</strong>
+              </div>
+              <div
+                class="progress accuracy-progress"
+                role="progressbar"
+                aria-label="Porcentaje de aciertos"
+                :aria-valuenow="porcentajeAciertos"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div
+                  class="progress-bar bg-success"
+                  :style="{ width: `${porcentajeAciertos}%` }"
+                ></div>
+              </div>
+            </div>
+          </section>
         </div>
 
         <button
@@ -276,66 +307,12 @@ function obtenerMensajeError(error) {
         </button>
       </header>
 
-      <section class="filter-card mb-3 mb-lg-4" aria-label="Elegir área y grado">
-        <div class="row g-3">
-          <div class="col-12 col-sm-7">
-            <label class="form-label" for="responder-area">Área</label>
-            <select
-              id="responder-area"
-              class="form-select"
-              :value="area"
-              :disabled="cargando || enviando"
-              @change="cambiarFiltro('area', $event.target.value)"
-            >
-              <option v-for="opcion in CBK_AREAS" :key="opcion.key" :value="opcion.key">
-                {{ opcion.label }}
-              </option>
-            </select>
-          </div>
-          <div class="col-12 col-sm-5">
-            <label class="form-label" for="responder-grado">Grado</label>
-            <select
-              id="responder-grado"
-              class="form-select"
-              :value="grado"
-              :disabled="cargando || enviando"
-              @change="cambiarFiltro('grado', $event.target.value)"
-            >
-              <option v-for="opcion in GRADOS" :key="opcion" :value="opcion">
-                {{ opcion }}° de primaria
-              </option>
-            </select>
-          </div>
-        </div>
-      </section>
-
-      <section class="row g-3 mb-4" aria-label="Progreso guardado en este navegador">
-        <div class="col-4">
-          <div class="stat-card">
-            <span>Respondidas</span>
-            <strong>{{ progreso.respondidas }}</strong>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="stat-card">
-            <span>Correctas</span>
-            <strong>{{ progreso.correctas }}</strong>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="stat-card">
-            <span>Aciertos</span>
-            <strong>{{ porcentajeAciertos }}%</strong>
-          </div>
-        </div>
-      </section>
-
-      <div v-if="cargando" class="question-card text-center" role="status" aria-live="polite">
+      <div v-if="cargando" class="question-card text-center mb-4" role="status" aria-live="polite">
         <div class="spinner-border text-primary mb-3" aria-hidden="true"></div>
         <p class="mb-0 text-secondary">Preparando una pregunta...</p>
       </div>
 
-      <div v-else-if="mensajeError && !pregunta" class="alert alert-danger shadow-sm" role="alert">
+      <div v-else-if="mensajeError && !pregunta" class="alert alert-danger shadow-sm mb-4" role="alert">
         <h2 class="h6 fw-bold">No se pudo cargar la pregunta</h2>
         <p class="mb-3">{{ mensajeError }}</p>
         <button type="button" class="btn btn-danger" @click="cargarPregunta">
@@ -343,7 +320,7 @@ function obtenerMensajeError(error) {
         </button>
       </div>
 
-      <article v-else-if="pregunta" class="question-card">
+      <article v-else-if="pregunta" class="question-card mb-4">
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
           <span class="badge text-bg-primary">{{ pregunta.tema }}</span>
           <span class="badge text-bg-light border">{{ dificultad }}</span>
@@ -437,6 +414,40 @@ function obtenerMensajeError(error) {
           </div>
         </form>
       </article>
+
+      <section class="filter-card mb-3 mb-lg-4" aria-label="Elegir área y grado">
+        <div class="row g-3">
+          <div class="col-12 col-sm-7">
+            <label class="form-label" for="responder-area">Área</label>
+            <select
+              id="responder-area"
+              class="form-select"
+              :value="area"
+              :disabled="cargando || enviando"
+              @change="cambiarFiltro('area', $event.target.value)"
+            >
+              <option v-for="opcion in CBK_AREAS" :key="opcion.key" :value="opcion.key">
+                {{ opcion.label }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-sm-5">
+            <label class="form-label" for="responder-grado">Grado</label>
+            <select
+              id="responder-grado"
+              class="form-select"
+              :value="grado"
+              :disabled="cargando || enviando"
+              @change="cambiarFiltro('grado', $event.target.value)"
+            >
+              <option v-for="opcion in GRADOS" :key="opcion" :value="opcion">
+                {{ opcion }}° de primaria
+              </option>
+            </select>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 </template>
@@ -450,27 +461,12 @@ function obtenerMensajeError(error) {
     #f7f8fa;
 }
 
-.eyebrow {
-  display: inline-block;
-  margin-bottom: 0.35rem;
-  color: #0d6efd;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
 .page-title {
   color: #172033;
   font-size: clamp(1.45rem, 3vw, 2rem);
   line-height: 1.2;
 }
 
-.page-subtitle {
-  font-size: 0.92rem;
-}
-
-.stat-card,
 .question-card,
 .filter-card {
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -478,13 +474,72 @@ function obtenerMensajeError(error) {
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
 }
 
-.stat-card {
+.progress-summary {
+  display: grid;
+  max-width: 430px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.progress-stat {
   display: flex;
-  min-height: 96px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.progress-stat span {
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.progress-stat strong {
+  color: #172033;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.progress-stat-label,
+.accuracy-header {
+  display: flex;
+  align-items: center;
+}
+
+.progress-stat-label {
+  gap: 0.3rem;
+}
+
+.progress-stat-label .bi {
+  font-size: 0.78rem;
+}
+
+.progress-stat-accuracy {
   flex-direction: column;
+  align-items: stretch;
   justify-content: center;
-  padding: 1rem 1.25rem;
-  border-radius: 1rem;
+}
+
+.accuracy-header {
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.accuracy-progress {
+  height: 0.3rem;
+  margin-top: 0.3rem;
+  border-radius: 999px;
+  background-color: #dfe7e2;
+}
+
+.accuracy-progress .progress-bar {
+  min-width: 0;
+  border-radius: inherit;
+  transition: width 0.25s ease;
 }
 
 .filter-card {
@@ -497,18 +552,6 @@ function obtenerMensajeError(error) {
   color: #475569;
   font-size: 0.82rem;
   font-weight: 700;
-}
-
-.stat-card span {
-  color: #6c757d;
-  font-size: 0.78rem;
-  font-weight: 650;
-}
-
-.stat-card strong {
-  color: #172033;
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  line-height: 1.1;
 }
 
 .question-card {
@@ -611,27 +654,16 @@ function obtenerMensajeError(error) {
     gap: 0.55rem !important;
   }
 
-  .eyebrow {
-    margin-bottom: 0.2rem;
-    font-size: 0.68rem;
+  .page-heading {
+    width: 100%;
   }
 
   .page-title {
     font-size: 1.35rem;
   }
 
-  .page-subtitle {
-    font-size: 0.82rem;
-  }
-
   .page-header > button {
     min-height: 44px;
-  }
-
-  .stat-card {
-    min-height: 82px;
-    padding: 0.65rem 0.35rem;
-    text-align: center;
   }
 
   .filter-card {
@@ -639,12 +671,29 @@ function obtenerMensajeError(error) {
     border-radius: 0.9rem;
   }
 
-  .stat-card span {
-    font-size: 0.68rem;
+  .progress-summary {
+    max-width: none;
+    gap: 0.35rem;
   }
 
-  .stat-card strong {
-    font-size: 1.35rem;
+  .progress-stat {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .progress-stat span {
+    font-size: 0.62rem;
+  }
+
+  .progress-stat strong {
+    font-size: 0.88rem;
+  }
+
+  .progress-stat-label {
+    gap: 0.2rem;
+  }
+
+  .progress-stat-label .bi {
+    font-size: 0.7rem;
   }
 
   .question-card {
